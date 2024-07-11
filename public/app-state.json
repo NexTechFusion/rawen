@@ -1,0 +1,108 @@
+{
+  "appDetails": {
+    "version": "string",
+    "appId": "string",
+    "versionEndpoint": "string"
+  },
+  "defaultTasks": [
+    "u9kec8qmv"
+  ],
+  "sources": {
+    "sourceEndpoints": [],
+    "inferenceEndpoints": []
+  },
+  "shortcuts": [],
+  "llmResults": [],
+  "keyValues": {
+    "settings": [
+      {
+        "id": "OPENAI",
+        "name": "OpenAI",
+        "isDefault": true,
+        "values": {
+          "ApiKey": "",
+          "Model": "gpt-4o"
+        }
+      },
+      {
+        "id": "GOOGLE",
+        "name": "Google",
+        "isDefault": true,
+        "values": {
+          "ApiKey": "",
+          "Model": "gemini-pro"
+        }
+      },
+      {
+        "id": "OLLAMA",
+        "name": "Ollama",
+        "isDefault": true,
+        "values": {
+          "Url": "http://localhost:11434",
+          "Model": "phi3"
+        }
+      }
+    ]
+  },
+  "commands": [
+    {
+      "id": "ols429ag1",
+      "name": "Summarize website",
+      "description": "Summarizes a website by the given url",
+      "actions": [
+        {
+          "id": "yv9aj3vlq",
+          "type": "DefaultLLM",
+          "endpointId": "OPENAI"
+        },
+        {
+          "id": "drimdc5dq",
+          "type": "CallJsScript",
+          "name": "sumarizeWebsite.js"
+        }
+      ],
+      "isTool": true
+    },
+    {
+      "id": "egegd3ve1",
+      "name": "Summarize youtube",
+      "description": "Summarizes a youtube video",
+      "actions": [
+        {
+          "id": "0u0t09ti2",
+          "type": "DefaultLLM",
+          "endpointId": "OPENAI"
+        },
+        {
+          "id": "15k8bk95g",
+          "type": "CallJsScript",
+          "name": "youtubeSummarize.js"
+        }
+      ],
+      "isTool": true
+    },
+    {
+      "id": "localChat",
+      "name": "Basic chat",
+      "isDefault": true,
+      "description": "QA against the local knowledgebase",
+      "actions": [
+        {
+          "id": "02owhb392",
+          "type": "VectorRequest",
+          "endpointId": "Chat"
+        },
+        {
+          "id": "49gjponu4",
+          "type": "LmmDocsRequest",
+          "endpointId": "OPENAI",
+          "promptFormat": "{{INPUT}}\n"
+        }
+      ],
+      "asFollowUp": false,
+      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAABTFJREFUeF7tm11MHFUUx/9nly2FHdAabMDUDzSNMYYWkqalkMqDWKox0USbCKwmWEu1PrhG07TlQUxo1JjYbUwNbFOVWpYnH0w1dtEHY8LSViUUtcZWJcHQVgtI9oPS8nHNQHdZ5mPnzsyyzMLuE5n5n3vO+c2959y5uxAAhN21+xjoPfHvpfwQY+8KRzoPpDIGCrpr95EFko8mTWB1gqezM1UQKOSuY6lyxusnz+MjXq1ZXQZAZgZklkCmBmSKoNlKqsfe6bKBHHosFknLcI1KT67V7gI5TuB6RDMKEvLBwsGEuuwqguP+lHU4zZgBnFUF4GxpBTnzFgwSfr1eNqhwuEN2TVXX/zxPUCnVKAKwrStG7hstioHEJ7f65f3IerBEpmPjEUSaGmPXY5DSBYDSU41mEw9Aty4DIE2WgKPqcWQ/7dJcAs5DbaBcQVOXdktAzEhXcZMgSPsiGJ9P9s4XMXn2O8wM/qVenR0OZD/TgBunfEAkrKoTGmwprfA8zrT3ATyjcGoSAyBg3S7g3y+Bm1fVR7TnAUXPAUPtALuprst9AFjzCDD0ScLorAFgw2fyIJU6RrJ1AJYeQPGbQN5G5acUD0EpedFqKgxceGXeXk13uQMYPi3zs/QA1AIWQ+UBYFR3C0UGQCpPhBSL4J1PAEW12kvg4VbA7pTrQv3AwPvaS+BiEzAxaMElIIZU0g6QpEUmswhOBYELrypCpuBrdT1EKOfsZKZkmvsAscVNh7R9ZOUDYlJaH3suMD2euA2Kd0Puun8ArNUaz+x9TQBmHRiwl51O6K0Jes7w2XmX5Y7fDAMQbvfZqRkzeqAvCwACVq0hz6djehKPatMaAAFlgsfXZyTxtAZAjOqFIx0+M4mnJQACe0fwdB6UJt4Y6GplYDlGgGzN+vMFI3ZRGwdm4Mo+Y2YI+UZIeiXkrv0iz9P5lCzxHv8YGG5LqneDg91jG0VTzlcGrePMprCe+5C+MeC3VAtrcyq8QutBMpnrpE3ecS4Ajd3+NhDmz7n1OFokbXh68g7ftif/Y/2uBjB8zOuGNp5ckDMXgN0BfzsBptYvb4DculXsLu+mHVfmC2z9YYDcWvbLFkAciG8AqlYDsewBxED01Q+A6D4piBUDIA7EOIhibXvFAZBuwlYsANWaoFU1xfuJukBd8UOoKrx7dphpNoO9Z75VHPLt0koUir81AHD1egRv9XUr6tq2bo9d//C3XvwyNqwcoqQL8OShpDHVBo9uqUaWTf5tz56ergW+4pOKv8GjO3ftCo7/8bM8disAUEvsg19/xO/B0VjQPAAOlpTjXiFf8UFKQc2KrAxg9MYEDvR+Pxvn5oJC7Fq/QTGx45f6cW547mswNUjivbQD4L14Hj+NiMeMcx+eGXCobBsKViu/ZKYdAJ61rfRklUD9HQmipV/hFdgKS0BMorm0EkW3qrvqdAXwUfljsNNczU3ULeIhdA0N4PPBS9btAkZbT1LsrDIDkpKMkUEyABa+DhthKNqY2ggZdZoUu8wMyMyABSdCRmcV3xLo9h8lwl6jThbDbsJuLzixpXrE7NhcAEQnVjsV9lbUcMeeCBL3II2Brl6AlZklngx7BvrhWMX2zckYixtA1NlL3f5nCfNHTAnpEjvBGeRlTt2It6JG+c2KcwCpTDcAvX60lk6yprLeuKL6RQewJ/D1oww2xWOipU6eeyNklG7UbnfAP0OSTRdjbP+xyh1L///KZpPjtZcuBSs8/ZTNgCikKASrJJ96AN3+Zm9lTTPvrEmF7n+pAVVRAyyeeAAAAABJRU5ErkJggg=="
+    }
+  ],
+  "generalSettings": {},
+  "taskFlows": []
+}

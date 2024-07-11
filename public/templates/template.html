@@ -1,0 +1,41 @@
+<link href="https://cdn.jsdelivr.net/npm/daisyui@3.6.3/dist/full.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<form class="hero min-h-screen bg-base-200">
+  <div class="hero-content flex-col">
+    <div class="text-center lg:text-left">
+      <h2 class="text-2xl font-bold">Add Odoo Product</h2>
+    </div>
+    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <div class="card-body">
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Product</span>
+          </label>
+          <input type="text" class="input input-bordered" />
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Price</span>
+          </label>
+          <input type="number" placeholder="" class="input input-bordered" />
+        </div>
+        <div class="form-control mt-6">
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<script>
+  // on submit form get the values and send a message outside the iframe
+  document.querySelector('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var product = document.querySelector('input[type="text"]').value;
+    var quantity = document.querySelector('input[type="number"]').value;
+    var message = {
+      product: product,
+      quantity: quantity
+    };
+    parent.postMessage(message, '*');
+  });
+</script>

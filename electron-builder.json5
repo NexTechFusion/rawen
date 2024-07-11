@@ -1,0 +1,52 @@
+{
+  "appId": "rawen",
+  "asar": true,
+  "asarUnpack": [
+    "public/**"
+  ],
+  "directories": {
+    "output": "release/${version}"
+  },
+  "extraResources": [
+    "public/**/*"
+  ],
+  "files": [
+    "dist-electron",
+    "dist"
+  ],
+  "mac": {
+    "artifactName": "${productName}_${version}.${ext}",
+    "target": [
+      "dmg",
+      "zip"
+    ]
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "artifactName": "${productName}_${version}.${ext}"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "deleteAppDataOnUninstall": false
+  },
+  "publish": {
+    "provider": "generic",
+    "channel": "latest",
+    "url": "https://github.com/NexTechFusion/rawen/releases/download/v0.0.1/"
+  },
+  "protocols": {
+    "name": "rawen",
+    "schemes": [
+      "rawenapp"
+    ]
+  },
+}

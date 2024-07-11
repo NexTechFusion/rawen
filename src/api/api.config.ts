@@ -1,0 +1,1 @@
+export const serverURL = "http://localhost:3400/api"; // TODO env

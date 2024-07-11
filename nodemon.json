@@ -1,0 +1,13 @@
+{
+    "ignore": [
+        "node_modules"
+    ],
+    "watch": [
+        "server",
+        "tests",
+        "public",
+        "scripts"
+    ],
+    "exec": "npm start",
+    "ext": "ts"
+}

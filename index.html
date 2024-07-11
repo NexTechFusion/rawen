@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rawen</title>
+    <style>
+      .Loader {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 6.6rem;
+        margin-top: 1.3rem;
+        margin-bottom: 1.3rem;
+      }
+      .Loader:before, .Loader:after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        animation-duration: 1.3s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        filter: drop-shadow(0 0 0.7555555556rem rgba(255, 190, 27, 0.879));
+      }
+      .Loader:before {
+        width: 100%;
+        padding-bottom: 100%;
+        box-shadow: inset 0 0 0 .7rem rgba(245, 176, 47, 0.589);
+        animation-name: pulsA;
+      }
+      .Loader:after {
+        width: calc(100% - .7rem*2);
+        padding-bottom: calc(100% - .7rem*2);
+        box-shadow: 0 0 0 0 rgba(255, 136, 0, 0.539);
+        animation-name: pulsB;
+      }
+      @keyframes pulsA {
+        0% {
+          box-shadow: inset 0 0 0 .7rem rgba(255, 149, 0, 0.286);
+          opacity: 1;
+       }
+        50%, 100% {
+          box-shadow: inset 0 0 0 0 rgba(245, 196, 47, 0.461);
+          opacity: 0;
+       }
+      }
+      @keyframes pulsB {
+        0%, 50% {
+          box-shadow: 0 0 0 0 rgba(255, 166, 0, 0.429);
+          opacity: 0;
+       }
+        100% {
+          box-shadow: 0 0 0 .7rem rgba(245, 186, 47, 0.415);
+          opacity: 1;
+       }
+      }
+      
+    .app-loading-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: black;
+      z-index: 9;
+    }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <div id="app-loading-style" class="app-loading-wrap">
+      <div class="Loader">
+        <img src="mainlogo.png" alt="rawen" width="156px"
+          height="156px" />
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+.progress {
+  display: flex;
+  align-items: center;
+
+  :global {
+    .progress-pr {
+      border: 1px solid #000;
+      border-radius: 3px;
+      height: 9px;
+      width: 200px;
+      margin: auto;
+      margin-top: 0.5rem;
+    }
+
+    .progress-rate {
+      height: 9px;
+      border-radius: 3px;
+      background-image: linear-gradient(to right, rgb(130, 86, 208) 0%, var(--primary-color) 100%)
+    }
+
+    .progress-num {
+      position: absolute;
+      left: 48%;
+      background: white;
+      margin-top: 0.5rem;
+    }
+  }
+}

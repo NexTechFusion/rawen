@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="module" src="https://cdn.jsdelivr.net/gh/vanillawc/wc-monaco-editor@1/index.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.6.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/electron@25.5.0/index.min.js"></script>
+</head>
+<style>
+    html {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        height: 100%;
+    }
+
+    .playBtn {
+        height: 100%;
+        width: 28px;
+        padding: 5px;
+    }
+
+    .monaco-mouse-cursor-text {}
+</style>
+
+<body>
+    <div class="flex flex-col h-full">
+        <div class="flex">
+            <input id="prompt" type="text" placeholder="Test prompt" class="input input-bordered flex-1" />
+            <button id="btn-play" class="btn btn-play bg-sky-500 hover:bg-sky-700">
+                <svg class="playBtn" fill="#ffffff" height="200px" width="200px" version="1.1" id="Capa_1"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 210 210"
+                    xml:space="preserve" stroke="#ffffff">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M179.07,105L30.93,210V0L179.07,105z"></path>
+                    </g>
+                </svg>
+            </button>
+        </div>
+        <wc-monaco-editor id="editor" language="javascript" class="flex-1" font-size="11px"
+            style="width:100%; height:100%"></wc-monaco-editor>
+        <div class="flex items-center">
+
+            <div class="flex-1">
+                <div class="inline-block">
+                    <div class="btn btn-sm btn-ghost text-fuchsia-800">
+                        <svg class="playBtn" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M4 4C4 3.44772 4.44772 3 5 3H14H14.5858C14.851 3 15.1054 3.10536 15.2929 3.29289L19.7071 7.70711C19.8946 7.89464 20 8.149 20 8.41421V20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20V4Z"
+                                    stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path>
+                                <path d="M20 8H15V3" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M7.5 13H7V17H7.5C8.60457 17 9.5 16.1046 9.5 15C9.5 13.8954 8.60457 13 7.5 13Z"
+                                    stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path d="M17.5 13L17 13C16.4477 13 16 13.4477 16 14V16C16 16.5523 16.4477 17 17 17H17.5"
+                                    stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M11.5 14C11.5 13.4477 11.9477 13 12.5 13H13C13.5523 13 14 13.4477 14 14V16C14 16.5523 13.5523 17 13 17H12.5C11.9477 17 11.5 16.5523 11.5 16V14Z"
+                                    stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <button id="btn-save" class="btn btn-sm btn-ghost">
+                <svg class="playBtn" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+                    fill="#ffffff" stroke="#ffffff">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <title>save-floppy</title>
+                        <desc>Created with Sketch Beta.</desc>
+                        <defs> </defs>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                            sketch:type="MSPage">
+                            <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-152.000000, -515.000000)"
+                                fill="#ffffff">
+                                <path
+                                    d="M171,525 C171.552,525 172,524.553 172,524 L172,520 C172,519.447 171.552,519 171,519 C170.448,519 170,519.447 170,520 L170,524 C170,524.553 170.448,525 171,525 L171,525 Z M182,543 C182,544.104 181.104,545 180,545 L156,545 C154.896,545 154,544.104 154,543 L154,519 C154,517.896 154.896,517 156,517 L158,517 L158,527 C158,528.104 158.896,529 160,529 L176,529 C177.104,529 178,528.104 178,527 L178,517 L180,517 C181.104,517 182,517.896 182,519 L182,543 L182,543 Z M160,517 L176,517 L176,526 C176,526.553 175.552,527 175,527 L161,527 C160.448,527 160,526.553 160,526 L160,517 L160,517 Z M180,515 L156,515 C153.791,515 152,516.791 152,519 L152,543 C152,545.209 153.791,547 156,547 L180,547 C182.209,547 184,545.209 184,543 L184,519 C184,516.791 182.209,515 180,515 L180,515 Z"
+                                    id="save-floppy" sketch:type="MSShapeGroup"> </path>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+    </div>
+</body>
+<script>
+    function handleSaveButtonClick() {
+        const editorElement = document.querySelector('wc-monaco-editor');
+        const promptElement = document.getElementById('prompt');
+        const prompt = promptElement.value;
+
+        const editorInstance = editorElement.editor;
+        const code = editorInstance.getValue();
+        const initialState = window.initialState;
+        window.ipcRenderer.send('code_saved', { ...initialState, code, prompt })
+    }
+
+    function handlePlayButtonClick() {
+        const editorElement = document.querySelector('wc-monaco-editor');
+        const promptElement = document.getElementById('prompt');
+        const prompt = promptElement.value;
+
+        const editorInstance = editorElement.editor;
+        const code = editorInstance.getValue();
+        const initialState = window.initialState;
+        window.ipcRenderer.send('code_played', { ...initialState, code, prompt })
+    }
+
+    function documentReady(callback) {
+        const saveButton = document.getElementById('btn-save');
+        const playButton = document.getElementById('btn-play');
+
+        saveButton.addEventListener('click', handleSaveButtonClick);
+        playButton.addEventListener('click', handlePlayButtonClick);
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', callback);
+        } else {
+            callback();
+        }
+    }
+
+    function handleInitialState() {
+        const initialState = window.initialState;
+        const editorElement = document.getElementById('editor');
+        const editorInstance = editorElement.editor;
+
+        if (initialState && initialState.code) {
+            editorInstance.setValue(initialState.code);
+        }
+
+        //initInitellisense(); TODO
+    }
+
+    function initInitellisense() {
+        const editorElement = document.getElementById('editor');
+        const monaco = editorElement.editor;
+
+        monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+            allowNonTsExtensions: true
+        });
+
+        const playwrightDeclarations = `
+        interface Playwright {
+            // Add functions and classes from Playwright API
+            chromium: any;
+            firefox: any;
+            webkit: any;
+          }
+    
+          declare var playwright: Playwright;
+    
+          declare module 'playwright' {
+            export = playwright;
+          }
+        `;
+
+        monaco.languages.typescript.javascriptDefaults.addExtraLib(
+            playwrightDeclarations,
+            'playwright.d.ts'
+        );
+    }
+
+    setTimeout(() => {
+        documentReady(handleInitialState);
+    }, 2000)
+</script>
+
+</html>
