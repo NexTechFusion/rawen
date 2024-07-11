@@ -1,6 +1,6 @@
 <center>
 <div style="display:flex;justify-content:center; ">
-  <img src="https://i.ibb.co/0VL8HP5/pilot.png" width="400" height="400" />
+  <img src="https://i.ibb.co/8xmfNxD/Rawenio.png" width="400" height="400" />
 </div>
 <h1 style="color:orange">
  Rawen 
@@ -55,7 +55,8 @@ TODO
 2. Run `npm install`
 3. Run `npm run dev`
 
-At the menu "key" you have to input
+
+At the menu "Key" set a default LLM and a key if needed. 
 
 ### 🛠️ Tools
 

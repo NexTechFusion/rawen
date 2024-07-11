@@ -16,6 +16,15 @@
   "keyValues": {
     "settings": [
       {
+        "id": "OLLAMA",
+        "name": "Ollama",
+        "isDefault": true,
+        "values": {
+          "Url": "http://localhost:11434",
+          "Model": "phi3"
+        }
+      },
+      {
         "id": "OPENAI",
         "name": "OpenAI",
         "isDefault": true,
@@ -32,15 +41,6 @@
           "ApiKey": "",
           "Model": "gemini-pro"
         }
-      },
-      {
-        "id": "OLLAMA",
-        "name": "Ollama",
-        "isDefault": true,
-        "values": {
-          "Url": "http://localhost:11434",
-          "Model": "phi3"
-        }
       }
     ]
   },
@@ -53,7 +53,7 @@
         {
           "id": "yv9aj3vlq",
           "type": "DefaultLLM",
-          "endpointId": "OPENAI"
+          "endpointId": "OLLAMA"
         },
         {
           "id": "drimdc5dq",
@@ -71,7 +71,7 @@
         {
           "id": "0u0t09ti2",
           "type": "DefaultLLM",
-          "endpointId": "OPENAI"
+          "endpointId": "OLLAMA"
         },
         {
           "id": "15k8bk95g",
@@ -90,12 +90,12 @@
         {
           "id": "02owhb392",
           "type": "VectorRequest",
-          "endpointId": "Chat"
+          "endpointId": "OLLAMA"
         },
         {
           "id": "49gjponu4",
           "type": "LmmDocsRequest",
-          "endpointId": "OPENAI",
+          "endpointId": "OLLAMA",
           "promptFormat": "{{INPUT}}\n"
         }
       ],

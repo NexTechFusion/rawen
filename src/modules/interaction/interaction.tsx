@@ -471,7 +471,6 @@ function Interaction() {
         <div className="flex flex-col items-center justify-center h-full dragger text-muted-foreground text-sm">
           <div className="text-left">
             <h3 className="opacity-30">Ask me anything...</h3>
-            <h3 className="opacity-30">"/help" for help</h3>
             <img
               src="./mainlogo.png"
               className="w-52 opacity-5 absolute bottom-2 right-2 -z-10"
