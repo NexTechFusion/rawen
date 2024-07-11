@@ -1,16 +1,17 @@
 <center>
 <div style="display:flex;justify-content:center; ">
-  <img src="public/mainlogo.png" width="86" height="86" />
   <img src="https://i.ibb.co/0VL8HP5/pilot.png" width="400" height="400" />
 </div>
-<h1 style="color:brown">Rawen </h1>
+<h1 style="color:orange">
+ Rawen 
+<img src="public/mainlogo.png" width="64" height="64" />
+</h1>
 
 ### A desktop app that executes AI driven commands
 
 Work in progress 🚧
 
 </center>
-
 
 ## Table of Contents
 
@@ -20,6 +21,7 @@ Work in progress 🚧
 - [General Features](#general-features)
 - [Installation](#installation)
 - [Dev-Mode](#dev-mode)
+  - [🛠️ Tools](#️-tools)
 - [TY Technologies](#ty-technologies)
   - [Disclaimer:](#disclaimer)
 
@@ -53,7 +55,12 @@ TODO
 2. Run `npm install`
 3. Run `npm run dev`
 
-At the menu "key" you have to input 
+At the menu "key" you have to input
+
+### 🛠️ Tools
+
+- [SDK](https://github.com/NexTech-Fusion/Rawen-command-maker)
+- [Documentation](https://docs.rawen.io)
 
 ## TY Technologies
 
