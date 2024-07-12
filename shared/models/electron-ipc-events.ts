@@ -1,5 +1,6 @@
 export enum ElectronIpcEvent {
     MARK = "MARK",
+    LOG = "LOG",
     CODE_RESULT = "CODE",
     CODE_EXEC = "CODE_EXEC",
     CODE_EXEC_RESULT = "CODE_EXEC_RESULT",

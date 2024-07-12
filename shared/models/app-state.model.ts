@@ -1,7 +1,6 @@
 import { DefaultLlmSetting } from "./settings.model";
 import { CommandModel } from "./command.model";
 import { ShortCutModel } from "./shortcut.model";
-import { MimicStore } from "@/modules/task/taskflow.model";
 
 export type LmmResultType = "prompt" | "response" | "info";
 export type SourcesType = "File" | "Website";
@@ -80,7 +79,7 @@ export interface AppStateModel {
     llmResults: LlmHistoryModel[];
     commands: CommandModel[];
     generalSettings: GeneralSettingsModel;
-    taskFlows: MimicStore[];
+    taskFlows: any[];
 }
 
 export interface GeneralSettingsModel {

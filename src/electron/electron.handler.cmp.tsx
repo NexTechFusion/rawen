@@ -16,6 +16,10 @@ const ElectronMarkHandlerComponent: React.FC = () => {
 
     isInitialized = true;
 
+    ipcRenderer.on(ElectronIpcEvent.LOG, (_, arg) => {
+      console.log("LOG", arg);
+    });
+
     ipcRenderer.on(ElectronIpcEvent.INITAL_STATE, (_, arg) => {
       dispatch(arg);
     });

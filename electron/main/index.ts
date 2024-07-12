@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut, ipcMain, screen, desktopCapturer, shell } from 'electron'
+import { app, BrowserWindow, globalShortcut, ipcMain, screen, desktopCapturer, shell, protocol } from 'electron'
 import { release } from 'node:os'
 import { join } from 'node:path'
 import { update } from './update'
@@ -13,6 +13,7 @@ import { startExternalCodeServer, stopExternalCodeServer } from './code-server';
 import { getScreenSize } from './utils';
 import { clearAreasE } from './mark-areas-functon';
 import { clearContentPos } from './display-content-pos-functions';
+import { Readable } from 'node:stream';
 
 process.env.DIST_ELECTRON = join(__dirname, '../')
 process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
@@ -26,7 +27,7 @@ let posBeforeCollapse;
 export let isAppCollapsed = false;
 const appName = app.getPath("exe");
 let expressPath = "./dist-electron/server/express-app.js";
-if (appName.includes(`rawen.exe`)) {
+if (process.env.NODE_ENV !== 'development') {
   expressPath = path.join("./resources/app.asar", expressPath);
 }
 export let canClick = true;
@@ -57,7 +58,10 @@ function startExpressServer() {
     env: {
       ELECTRON_RUN_AS_NODE: "1",
     },
-  } as any)
+  } as any);
+
+  log(expressAppProcess.stdout);
+  log(expressAppProcess.stderr);
 }
 
 function safeStringify(obj1: any) {
@@ -214,6 +218,14 @@ export function openFollowingWindow(content) {
 }
 
 
+export function registerProtocol() {
+  const customProtocol = 'rawenapp';
+  app.setAsDefaultProtocolClient(customProtocol);
+  protocol.registerSchemesAsPrivileged([
+    { scheme: customProtocol, privileges: { secure: true, standard: true, bypassCSP: true, supportFetchAPI: true } }
+  ])
+}
+
 async function createWindow() {
   startExpressServer();
   startExternalCodeServer();
@@ -221,8 +233,8 @@ async function createWindow() {
   mainWindow = new BrowserWindow({
     title: 'rawen',
     autoHideMenuBar: true,
-    width: 350,
-    height: 500,
+    width: 400,
+    height: 550,
     frame: false,
     alwaysOnTop: true,
     icon: join(process.env.PUBLIC, 'favicon.ico'),
@@ -272,6 +284,7 @@ async function createWindow() {
   update(mainWindow)
 }
 
+registerProtocol();
 app.whenReady().then(createWindow)
 
 app.on('before-quit', async () => {
@@ -345,4 +358,25 @@ export function collapseApp(options: { isCollapsed: boolean, width?: number, hei
   }
 
   mainWindow.setResizable(!isCollapsed);
+}
+
+function log(x: Readable | string) {
+  if (x instanceof Readable) {
+    x.on("data", function (data: any) {
+      data
+        .toString()
+        .split("\n")
+        .forEach((line: string) => {
+          if (line !== "") {
+            let serverLogEntry = line.replace(
+              /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
+              ""
+            );
+            mainWindow!.webContents.send(ElectronIpcEvent.LOG, serverLogEntry);
+          }
+        });
+    });
+  } else {
+    mainWindow!.webContents.send(ElectronIpcEvent.LOG, x);
+  }
 }

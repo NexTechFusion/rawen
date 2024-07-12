@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import bodyParser from 'body-parser';
 import { ipcMain } from 'electron';
 import { ElectronIpcEvent } from '../../shared/models/electron-ipc-events';
