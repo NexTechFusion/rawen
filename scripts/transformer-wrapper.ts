@@ -23,7 +23,7 @@ const pubPath = async () => path.join(await fs.realpath(__dirname), '..', 'publi
 // loaded.env.useBrowserCache = false;
 export async function initTransformers() {
 
-    const TransformersApi = Function('return import("@xenova/transformers")')();
+    const TransformersApi = Function('return import("@xenova/transformers")')(); // Doesnt work when project is built and installed via installer
     const loaded = await TransformersApi;
     RawImage = loaded.RawImage;
     AutoProcessor = loaded.AutoProcessor;
