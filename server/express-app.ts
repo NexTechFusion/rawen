@@ -10,7 +10,6 @@ import { CodeExecController } from './api/controllers/CodeExecController';
 import { ExternalController } from './api/controllers/ExternalController';
 import { ImageVectorController } from './api/controllers/ImageVectorController';
 import { SERVER_PORT } from '../config';
-import "node-self";
 
 export class App {
   private port: Number = SERVER_PORT;
@@ -26,10 +25,6 @@ export class App {
     this.serveStaticFiles();
     this.setupMiddlewares();
     this.registerRoutingControllers();
-  }
-
-  private async loadTransfomers() {
-    const trans = await import("@xenova/transformers");
   }
 
   private useContainers() {
