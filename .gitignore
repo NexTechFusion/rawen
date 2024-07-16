@@ -34,7 +34,5 @@ yarn.lock
 /test-results/
 /playwright-report/
 /playwright/.cache/
-/public/python
 /plugin_packages
-/public/browser-data
 /browser-data

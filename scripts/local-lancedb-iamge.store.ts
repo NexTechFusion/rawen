@@ -7,7 +7,6 @@ let processor;
 let vision_model;
 let loaded = false;
 const sourceColumn = "image";
-const imgPath = `${getPublicPath()}/lancedb/images`;
 const model_id = 'Xenova/clip-vit-base-patch32';
 
 export interface IngestImageRequest {
@@ -36,7 +35,7 @@ export async function ingestImages(imgs: IngestImageRequest[], table = "images")
                     let binaryData = Buffer.from(m[2], 'base64');
                     srcOrBuffer = binaryData;
                 }
-
+                const imgPath = `${getPublicPath()}/lancedb/images`;
                 await fs.writeFile(`${imgPath}/${saveToName}`, srcOrBuffer);
                 image = `${imgPath}/${saveToName}`;
             }
@@ -91,6 +90,7 @@ export async function retriveImages(srcOrBuffer: string | any, limit = 10, filte
             }
 
             isBuffer = true;
+            const imgPath = `${getPublicPath()}/lancedb/images`;
             const tmpFileName = imgPath + "/" + Math.random().toString(36).substring(7) + "TMP.png";
             await fs.writeFile(tmpFileName, srcOrBuffer);
             srcOrBuffer = tmpFileName;
