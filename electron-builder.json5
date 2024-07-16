@@ -1,55 +1,62 @@
 {
-  "appId": "rawen",
-  "asar": true,
-  "asarUnpack": [
-    "public/**"
-  ],
-  "directories": {
-    "output": "release/${version}"
+  appId: "rawen",
+  artifactName: "${productName}.${version}.${ext}",
+  asar: true,
+  asarUnpack: ["public/**"],
+  directories: {
+    output: "release/${version}",
   },
-  "extraResources": [
-    "public/**/*"
-  ],
-  "files": [
-    "dist-electron",
-    "dist"
-  ],
-  "mac": {
-    "artifactName": "${productName}_${version}.${ext}",
-    "target": [
-      "dmg",
-      "zip"
-    ],
-    "icon": "public/mainlogo.png"
-  },
-  "win": {
-    "target": [
+  extraResources: ["public/**/*"],
+  files: ["dist-electron", "dist"],
+  dmg: {
+    contents: [
       {
-        "target": "nsis",
-        "arch": [
-          "x64"
-        ]
-      }
+        x: 410,
+        y: 150,
+        type: "link",
+        path: "/Applications",
+      },
+      {
+        x: 130,
+        y: 150,
+        type: "file",
+      },
     ],
-    "publisherName": "NexTechFusion",
-    "artifactName": "${productName}_${version}.${ext}",
-    "icon": "public/favicon.ico"
+    sign: false,
   },
-  "nsis": {
-    "oneClick": false,
-    "perMachine": false,
-    "allowToChangeInstallationDirectory": true,
-    "deleteAppDataOnUninstall": false
+  mac: {
+    artifactName: "${productName}_${version}.${ext}",
+    target: ["dmg"],
+    icon: "public/mainlogo.png",
+    hardenedRuntime: true,
+    gatekeeperAssess: false,
+    entitlements: "./entitlements.mac.plist",
+    entitlementsInherit: "./entitlements.mac.plist",
   },
-  "publish": {
-    "provider": "generic",
-    "channel": "latest",
-    "url": "https://github.com/NexTechFusion/rawen/releases/download/v0.0.1/"
+  win: {
+    target: [
+      {
+        target: "nsis",
+        arch: ["x64"],
+      },
+    ],
+    publisherName: "NexTechFusion",
+    artifactName: "${productName}_${version}.${ext}",
+    icon: "public/favicon.ico",
   },
-  "protocols": {
-    "name": "rawen",
-    "schemes": [
-      "rawenapp"
-    ]
-  }
+  nsis: {
+    oneClick: false,
+    perMachine: false,
+    allowToChangeInstallationDirectory: true,
+    deleteAppDataOnUninstall: false,
+  },
+  publish: {
+    provider: "generic",
+    channel: "latest",
+    url: "https://github.com/NexTechFusion/rawen/releases/download/v0.0.1/",
+  },
+  protocols: {
+    name: "rawen",
+    schemes: ["rawenapp"],
+  },
 }
