@@ -14,6 +14,8 @@ import { getScreenSize } from './utils';
 import { clearAreasE } from './mark-areas-functon';
 import { clearContentPos } from './display-content-pos-functions';
 import { Readable } from 'node:stream';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 process.env.DIST_ELECTRON = join(__dirname, '../')
 process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')

@@ -10,6 +10,8 @@ import { CodeExecController } from './api/controllers/CodeExecController';
 import { ExternalController } from './api/controllers/ExternalController';
 import { ImageVectorController } from './api/controllers/ImageVectorController';
 import { SERVER_PORT } from '../config';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 export class App {
   private port: Number = SERVER_PORT;
