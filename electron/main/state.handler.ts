@@ -27,17 +27,15 @@ export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: A
         }
     });
 
-    win.webContents.on("did-finish-load", () => {
-        try {
-            callback(pushStateToApp());
-            win.webContents.send(ElectronIpcEvent.VERSION_INFO, {
-                version: app.getVersion(),
-                name: app.getName()
-            });
-        } catch (err) {
-            console.log(err);
-        }
-    });
+    try {
+        callback(pushStateToApp());
+        win.webContents.send(ElectronIpcEvent.VERSION_INFO, {
+            version: app.getVersion(),
+            name: app.getName()
+        });
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 export function pushStateToApp() {

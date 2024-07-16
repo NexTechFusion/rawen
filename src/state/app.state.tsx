@@ -42,6 +42,8 @@ export const AppProvider = ({ children }) => {
     }, [theme])
 
     useEffect(() => {
+        if(state == null) return;
+
         console.log("STATE CHANGED", state);
         updateStateElectron(state);
     }, [state]);

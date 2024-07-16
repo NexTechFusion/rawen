@@ -252,9 +252,9 @@ async function createWindow() {
   mainWindow.setAlwaysOnTop(true, "pop-up-menu");
 
   if (url) {
-    mainWindow.loadURL(url)
+    await mainWindow.loadURL(url)
   } else {
-    mainWindow.loadFile(indexHtml)
+    await mainWindow.loadFile(indexHtml)
   }
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
