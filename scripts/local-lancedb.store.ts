@@ -2,7 +2,6 @@ import { MetricType, OpenAIEmbeddingFunction, connect } from 'vectordb';
 import { initTransformers, pipeline } from './transformer-wrapper';
 import { getPublicPath } from '../shared/utils/resources';
 import { getSimilarity } from './transformer-wrapper';
-const dbPath = getPublicPath() + '/lancedb'
 // TODO make as class
 let embedFunction;
 export interface IngestOptions extends EmbeddFn {
@@ -78,6 +77,7 @@ export async function update(options: UpdateOptions) {
             await ensureSet();
         }
 
+        const dbPath = getPublicPath() + '/lancedb'
         const db = await connect(dbPath)
 
         if ((await db.tableNames()).includes(options.table)) {
@@ -101,12 +101,14 @@ export async function remove(options: DeleteOptions) {
         if (!options.embed) {
             await ensureSet();
         }
+        const dbPath = getPublicPath() + '/lancedb'
         const db = await connect(dbPath)
 
         if ((await db.tableNames()).includes(options.table)) {
             const tbl = await db.openTable(options.table, options.embed ?? embedFunction)
             await tbl.delete(options.filter)
         } else {
+
             return new Error("Table does not exist")
         }
     } catch (e) {
@@ -120,7 +122,9 @@ export async function ingest(options: IngestOptions) {
         if (!options.embed) {
             await ensureSet();
         }
+        const dbPath = getPublicPath() + '/lancedb'
         const db = await connect(dbPath)
+
         if ((await db.tableNames()).includes(options.table)) {
             const tbl = await db.openTable(options.table, options.embed ?? embedFunction)
             await tbl.overwrite(options.data)
@@ -139,7 +143,9 @@ export async function retrive(options: RetriveOptions) {
         if (!options.embed) {
             await ensureSet();
         }
+        const dbPath = getPublicPath() + '/lancedb'
         const db = await connect(dbPath);
+
 
         if ((await db.tableNames()).includes(options.table)) {
             const tbl = await db.openTable(options.table, options.embed ?? embedFunction)
@@ -178,7 +184,7 @@ export async function retrive(options: RetriveOptions) {
 
             return mapToDocumentData(results);
         } else {
-            console.log("Table does not exist");
+
             return [];
         }
     }
