@@ -37,5 +37,4 @@ yarn.lock
 /public/python
 /plugin_packages
 /public/browser-data
-/public/lancedb
 /browser-data
