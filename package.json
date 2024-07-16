@@ -17,7 +17,7 @@
     "dev": "npm-run-all --parallel dev-vite dev-local",
     "dev-vite": "cross-env NODE_ENV=development vite",
     "build": "tsc && vite build && tsc -p tsconfig.server.json --outDir dist-electron && electron-builder",
-    "dev-local": "set NODE_ENV=development&& nodemon --exec ts-node server/express-app.ts",
+    "dev-local": "cross-env NODE_ENV=development&& nodemon --exec ts-node server/express-app.ts",
     "build-server": "tsc -p tsconfig.server.json --outDir dist-electron"
   },
   "dependencies": {
