@@ -21,21 +21,25 @@ export function saveAppStateElectron(state: any) {
 }
 
 export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: AppStateModel) => void) {
-    ipcMain.on(ElectronIpcEvent.UPDATE_STATE, (_, state) => {
-        if (state != null) {
-            callback(state);
-        }
-    });
+    setTimeout(() => {
+        try {
+            callback(pushStateToApp());
+            win.webContents.send(ElectronIpcEvent.VERSION_INFO, {
+                version: app.getVersion(),
+                name: app.getName()
+            });
 
-    try {
-        callback(pushStateToApp());
-        win.webContents.send(ElectronIpcEvent.VERSION_INFO, {
-            version: app.getVersion(),
-            name: app.getName()
-        });
-    } catch (err) {
-        console.log(err);
-    }
+            setTimeout(() => {
+                ipcMain.on(ElectronIpcEvent.UPDATE_STATE, (_, state) => {
+                    if (state != null) {
+                        callback(state);
+                    }
+                });
+            }, 1000);
+        } catch (err) {
+            console.log(err);
+        }
+    }, 1000);
 }
 
 export function pushStateToApp() {
