@@ -21,7 +21,7 @@
         "isDefault": true,
         "values": {
           "Url": "http://localhost:11434",
-          "Model": "phi3"
+          "Model": "llama3"
         }
       },
       {

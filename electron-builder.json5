@@ -33,10 +33,8 @@
     ],
     "publisherName": "NexTechFusion",
     "artifactName": "${productName}_${version}.${ext}",
-    "icon": "public/favicon.ico",
+    "icon": "public/favicon.ico"
   },
-  "author": "NexTechFusion GmbH",
-  "license": "AGPL-3.0-only",
   "nsis": {
     "oneClick": false,
     "perMachine": false,
@@ -53,5 +51,5 @@
     "schemes": [
       "rawenapp"
     ]
-  },
+  }
 }
