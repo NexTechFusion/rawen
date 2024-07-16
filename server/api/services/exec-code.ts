@@ -7,8 +7,6 @@ import robot from "@jitsi/robotjs";
 import { extractDataFromWebsite } from "../../../scripts/website-extractor";
 import { YoutubeTranscript } from "../../../scripts/youtube-transcript";
 
-robot.setKeyboardDelay(1);
-
 @Service()
 export class CodeExecService {
 

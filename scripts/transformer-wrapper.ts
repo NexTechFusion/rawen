@@ -1,30 +1,13 @@
-import { dynamicImport } from 'tsimportlib';
-import path from 'path';
-import fs from 'fs/promises';
-// import "node-self";
+import sync from 'import-sync';
 
-//Quick workaround
 export let RawImage;
 export let AutoProcessor;
 export let CLIPVisionModelWithProjection;
 export let pipeline;
 export let cos_sim;
 
-const pubPath = async () => path.join(await fs.realpath(__dirname), '..', 'public');
-// const puPath = await pubPath();
-// console.log(await pubPath());
-
-// const loadi = await dynamicImport(`${puPath}/transformer.js`, module);
-// const loaded = loadi.default;
-
-// console.log(loaded.env.backends);
-// loaded.env.allowRemoteModels = true;
-// loaded.env.allowLocalModels = false;
-// loaded.env.useBrowserCache = false;
-export async function initTransformers() {
-
-    const TransformersApi = Function('return import("@xenova/transformers")')(); // Doesnt work when project is built and installed via installer
-    const loaded = await TransformersApi;
+export function initTransformers() {
+    const loaded = sync(`@xenova/transformers`);
     RawImage = loaded.RawImage;
     AutoProcessor = loaded.AutoProcessor;
     CLIPVisionModelWithProjection = loaded.CLIPVisionModelWithProjection;

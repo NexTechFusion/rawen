@@ -52,11 +52,10 @@ TODO
 ## Dev-Mode
 
 1. Clone the repository
-2. Run `npm install`
+2. Run `npm i --force`
 3. Run `npm run dev`
 
-
-At the menu "Key" set a default LLM and a key if needed. 
+At the menu "Key" set a default LLM and a key if needed.
 
 ### 🛠️ Tools
 
@@ -73,6 +72,7 @@ At the menu "Key" set a default LLM and a key if needed.
 
 ### Disclaimer:
 
-rawen is a highly experimental project to discover the potential of AI in desktop applications. It should form a foundation for further research and development on our main project.
+Rawen is a highly experimental project to discover the potential of AI as a desktop copilot.
+It should form a foundation for further research and development on our main objective.
 
 The code may be spaghetti but AI will fix this in the future.

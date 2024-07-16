@@ -2,8 +2,7 @@
   "appId": "rawen",
   "asar": true,
   "asarUnpack": [
-    "public/**",
-    "node_modules/@xenova/**/*"
+    "public/**"
   ],
   "directories": {
     "output": "release/${version}"
@@ -13,15 +12,15 @@
   ],
   "files": [
     "dist-electron",
-    "dist",
-    "node_modules/@xenova/**/*"
+    "dist"
   ],
   "mac": {
     "artifactName": "${productName}_${version}.${ext}",
     "target": [
       "dmg",
       "zip"
-    ]
+    ],
+    "icon": "public/mainlogo.png"
   },
   "win": {
     "target": [
@@ -32,8 +31,12 @@
         ]
       }
     ],
-    "artifactName": "${productName}_${version}.${ext}"
+    "publisherName": "NexTechFusion",
+    "artifactName": "${productName}_${version}.${ext}",
+    "icon": "public/favicon.ico",
   },
+  "author": "NexTechFusion GmbH",
+  "license": "AGPL-3.0-only",
   "nsis": {
     "oneClick": false,
     "perMachine": false,
