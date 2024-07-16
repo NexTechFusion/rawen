@@ -43,9 +43,14 @@ export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: A
 }
 
 export function pushStateToApp() {
-    const jsonData = fs.readFileSync(getAppstatePath(), 'utf-8');
-    mainWindow!.webContents.send(ElectronIpcEvent.LOG, getAppstatePath()); // TODO RM
-    const state = JSON.parse(jsonData);
-    mainWindow?.webContents.send(ElectronIpcEvent.INITAL_STATE, state);
-    return state;
+    try {
+        mainWindow!.webContents.send(ElectronIpcEvent.LOG, getAppstatePath()); // TODO RM
+        const jsonData = fs.readFileSync(getAppstatePath(), 'utf-8');
+        const state = JSON.parse(jsonData);
+        mainWindow?.webContents.send(ElectronIpcEvent.INITAL_STATE, state);
+        return state;
+    } catch (error) {
+        console.error('Failed to load state:', error);
+        mainWindow!.webContents.send(ElectronIpcEvent.LOG, error); // TODO RM
+    }
 }
