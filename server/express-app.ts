@@ -12,7 +12,6 @@ import { ImageVectorController } from './api/controllers/ImageVectorController';
 import { SERVER_PORT } from '../config';
 import * as dotenv from 'dotenv';
 dotenv.config();
-
 export class App {
   private port: Number = SERVER_PORT;
   private app: express.Application = express();

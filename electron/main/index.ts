@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut, ipcMain, screen, desktopCapturer, shell, protocol } from 'electron'
+import { app, BrowserWindow, globalShortcut, ipcMain, screen, desktopCapturer, shell, protocol, systemPreferences } from 'electron'
 import { release } from 'node:os'
 import { join } from 'node:path'
 import { update } from './update'
@@ -20,15 +20,17 @@ dotenv.config();
 
 process.env.DIST_ELECTRON = join(__dirname, '../')
 process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
+process.env.ELECTRON_USER_PATH = app.getPath('userData')
 let expressAppProcess: any;
 
 let currAppWidth = [110, 110];
 let posBeforeCollapse;
 export let isAppCollapsed = false;
 const appName = app.getPath("exe");
-let expressPath = "./dist-electron/server/express-app.js";
+
+let expressPath;
 if (process.env.NODE_ENV !== 'development') {
-  expressPath = path.join(`${getResourcesPath()}/app.asar`, expressPath);
+  expressPath = path.join(`${getResourcesPath()}/app.asar`, 'dist-electron/server/express-app.js');
 }
 export let canClick = true;
 let externalWindows = [];
@@ -54,9 +56,13 @@ const url = process.env.VITE_DEV_SERVER_URL
 const indexHtml = join(process.env.DIST, 'index.html')
 
 function startExpressServer() {
+
+  if (!expressPath) return;
+
   expressAppProcess = spawn(appName, [expressPath], {
     env: {
       ELECTRON_RUN_AS_NODE: "1",
+      ELECTRON_USER_DATA_PATH: app.getPath("userData")
     },
   } as any);
 

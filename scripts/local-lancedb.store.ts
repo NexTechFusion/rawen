@@ -1,5 +1,6 @@
 import { MetricType, OpenAIEmbeddingFunction, connect } from 'vectordb';
 import { initTransformers, pipeline } from './transformer-wrapper';
+import path from 'node:path';
 let embedFunction;
 export interface IngestOptions extends EmbeddFn {
     table: string;
@@ -114,12 +115,15 @@ export async function remove(options: DeleteOptions) {
 
 async function ensureConnect() {
     const fs = require('fs');
+    const userDataPath = process.env.ELECTRON_USER_DATA_PATH || "./";
+    console.log("userDataPath: ", userDataPath);
+    const lancePath = path.join(userDataPath, "lancedb");
 
-    if (!fs.existsSync("./lancedb")) {
-        fs.mkdirSync("./lancedb");
+    if (!fs.existsSync(lancePath)) {
+        fs.mkdirSync(lancePath);
     }
 
-    return await connect("./lancedb");
+    return await connect(lancePath);
 }
 
 export async function ingest(options: IngestOptions) {
