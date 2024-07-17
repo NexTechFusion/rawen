@@ -36,3 +36,4 @@ yarn.lock
 /playwright/.cache/
 /plugin_packages
 /browser-data
+/lancedb

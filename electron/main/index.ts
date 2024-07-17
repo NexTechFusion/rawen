@@ -14,14 +14,12 @@ import { getScreenSize } from './utils';
 import { clearAreasE } from './mark-areas-functon';
 import { clearContentPos } from './display-content-pos-functions';
 import { Readable } from 'node:stream';
+import { getPublicPath, getResourcesPath } from '../../shared/utils/resources';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
 process.env.DIST_ELECTRON = join(__dirname, '../')
 process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
-process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
-  ? join(process.env.DIST_ELECTRON, '../public')
-  : join(process.resourcesPath, 'public');
 let expressAppProcess: any;
 
 let currAppWidth = [110, 110];
@@ -30,7 +28,7 @@ export let isAppCollapsed = false;
 const appName = app.getPath("exe");
 let expressPath = "./dist-electron/server/express-app.js";
 if (process.env.NODE_ENV !== 'development') {
-  expressPath = path.join("./resources/app.asar", expressPath);
+  expressPath = path.join(`${getResourcesPath()}/app.asar`, expressPath);
 }
 export let canClick = true;
 let externalWindows = [];
@@ -109,7 +107,7 @@ export function openExternalWindow(filePathOrContent: string, options?: {
 
   const externalWindow = new BrowserWindow({
     title: 'rawen-external',
-    icon: join(process.env.PUBLIC, 'favicon.ico'),
+    icon: join(getPublicPath(), 'favicon.ico'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

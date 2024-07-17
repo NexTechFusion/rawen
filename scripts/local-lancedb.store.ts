@@ -1,8 +1,5 @@
 import { MetricType, OpenAIEmbeddingFunction, connect } from 'vectordb';
 import { initTransformers, pipeline } from './transformer-wrapper';
-import { getPublicPath } from '../shared/utils/resources';
-import { getSimilarity } from './transformer-wrapper';
-// TODO make as class
 let embedFunction;
 export interface IngestOptions extends EmbeddFn {
     table: string;
@@ -77,8 +74,7 @@ export async function update(options: UpdateOptions) {
             await ensureSet();
         }
 
-        const dbPath = getPublicPath() + '/lancedb'
-        const db = await connect(dbPath)
+        const db = await ensureConnect();
 
         if ((await db.tableNames()).includes(options.table)) {
             const tbl = await db.openTable(options.table, options.embed ?? embedFunction)
@@ -101,8 +97,7 @@ export async function remove(options: DeleteOptions) {
         if (!options.embed) {
             await ensureSet();
         }
-        const dbPath = getPublicPath() + '/lancedb'
-        const db = await connect(dbPath)
+        const db = await ensureConnect();
 
         if ((await db.tableNames()).includes(options.table)) {
             const tbl = await db.openTable(options.table, options.embed ?? embedFunction)
@@ -117,13 +112,22 @@ export async function remove(options: DeleteOptions) {
     }
 }
 
+async function ensureConnect() {
+    const fs = require('fs');
+
+    if (!fs.existsSync("./lancedb")) {
+        fs.mkdirSync("./lancedb");
+    }
+
+    return await connect("./lancedb");
+}
+
 export async function ingest(options: IngestOptions) {
     try {
         if (!options.embed) {
             await ensureSet();
         }
-        const dbPath = getPublicPath() + '/lancedb'
-        const db = await connect(dbPath)
+        const db = await ensureConnect();
 
         if ((await db.tableNames()).includes(options.table)) {
             const tbl = await db.openTable(options.table, options.embed ?? embedFunction)
@@ -143,9 +147,7 @@ export async function retrive(options: RetriveOptions) {
         if (!options.embed) {
             await ensureSet();
         }
-        const dbPath = getPublicPath() + '/lancedb'
-        const db = await connect(dbPath);
-
+        const db = await ensureConnect();
 
         if ((await db.tableNames()).includes(options.table)) {
             const tbl = await db.openTable(options.table, options.embed ?? embedFunction)
@@ -184,13 +186,12 @@ export async function retrive(options: RetriveOptions) {
 
             return mapToDocumentData(results);
         } else {
-
             return [];
         }
     }
     catch (e) {
         console.error(e);
-        throw e;
+        throw e + ">_________>";
     }
 
 }

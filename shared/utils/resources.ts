@@ -4,7 +4,11 @@ export function getPublicPath(): string {
     if (process.env.NODE_ENV === 'development') {
         return 'public';
     } else {
-        console.log('Production path:', (process as any).resourcesPath);
-        return path.join((process as any).resourcesPath || path.dirname(__dirname) + "/resources", 'public');
+        console.log('resources path:', getResourcesPath());
+        return path.join(getResourcesPath(), 'public');
     }
+}
+
+export function getResourcesPath(): string {
+    return path.join((process as any).resourcesPath || path.dirname(__dirname) + "/resources");
 }

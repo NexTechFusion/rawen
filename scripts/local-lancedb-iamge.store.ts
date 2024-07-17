@@ -165,6 +165,8 @@ const embed_fn = {
 export async function getAll(config = null) {
     const storeId = config?.storeId ?? "global";
 
+    return []; //TODO
+
     const docsArray: ImageStoreModel[] = await retriveImages(
         "*",
         20000,
