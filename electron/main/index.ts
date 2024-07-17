@@ -124,7 +124,7 @@ export function openExternalWindow(filePathOrContent: string, options?: {
       externalWindow.loadFile(filePathOrContent)
     }
   } else {
-    externalWindow.loadFile(join(process.env.PUBLIC, 'templates/tailwind-basic.html'))
+    externalWindow.loadFile(join(getPublicPath(), 'templates/tailwind-basic.html'))
   }
 
   if (options?.position) {
@@ -176,7 +176,7 @@ export function openFollowingWindow(content) {
     focusable: false,
     transparent: true,
     alwaysOnTop: true,
-    icon: join(process.env.PUBLIC, 'favicon.ico'),
+    icon: join(getPublicPath(), 'favicon.ico'),
     webPreferences: {
       nodeIntegration: true,
       nodeIntegrationInSubFrames: true,
@@ -186,7 +186,7 @@ export function openFollowingWindow(content) {
   })
   curorWindow.setAlwaysOnTop(true, "pop-up-menu");
 
-  curorWindow.loadFile(join(process.env.PUBLIC, 'templates/tailwind-basic.html'))
+  curorWindow.loadFile(join(getPublicPath(), 'templates/tailwind-basic.html'))
 
   curorWindow.setIgnoreMouseEvents(true);
   const intervall = setInterval(() => {
@@ -237,7 +237,7 @@ async function createWindow() {
     height: 550,
     frame: false,
     alwaysOnTop: true,
-    icon: join(process.env.PUBLIC, 'favicon.ico'),
+    icon: join(getPublicPath(), 'favicon.ico'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
