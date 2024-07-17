@@ -227,9 +227,6 @@ export function registerProtocol() {
 }
 
 async function createWindow() {
-  startExpressServer();
-  startExternalCodeServer();
-
   mainWindow = new BrowserWindow({
     title: 'rawen',
     autoHideMenuBar: true,
@@ -260,6 +257,8 @@ async function createWindow() {
     return { action: 'deny' };
   });
 
+  startExpressServer();
+  startExternalCodeServer();
   addCodeExecuterHandler();
   addUpdateAppStateHandler(mainWindow, (state) => {
     addShortcuthandlers(state);
