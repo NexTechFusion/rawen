@@ -114,15 +114,7 @@ export async function remove(options: DeleteOptions) {
 }
 
 async function ensureConnect() {
-    const fs = require('fs');
-    const userDataPath = process.env.ELECTRON_USER_DATA_PATH || "./";
-    console.log("userDataPath: ", userDataPath);
-    const lancePath = path.join(userDataPath, "lancedb");
-
-    if (!fs.existsSync(lancePath)) {
-        fs.mkdirSync(lancePath);
-    }
-
+    const lancePath = process.env.ELECTRON_USER_DATA_PATH || "./lancedb";
     return await connect(lancePath);
 }
 

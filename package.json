@@ -7,6 +7,7 @@
     "name": "NexTechFusion",
     "email": "info@nextech-fusion.com"
   },
+  "description": "Desktop application that executes AI driven commands",
   "private": true,
   "debug": {
     "env": {
@@ -21,7 +22,6 @@
     "build-server": "tsc -p tsconfig.server.json --outDir dist-electron"
   },
   "dependencies": {
-    "@jitsi/robotjs": "^0.6.13",
     "@langchain/google-genai": "^0.0.15",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -48,7 +48,6 @@
     "class-validator": "^0.14.0",
     "class-validator-jsonschema": "^5.0.0",
     "class-variance-authority": "^0.7.0",
-    "clipboard-sys": "^1.2.1",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "cors": "^2.8.5",

@@ -20,7 +20,7 @@ dotenv.config();
 
 process.env.DIST_ELECTRON = join(__dirname, '../')
 process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
-process.env.ELECTRON_USER_PATH = app.getPath('userData')
+process.env.ELECTRON_USER_PATH = app.getAppPath()
 let expressAppProcess: any;
 
 let currAppWidth = [110, 110];
@@ -30,7 +30,7 @@ const appName = app.getPath("exe");
 
 let expressPath;
 if (process.env.NODE_ENV !== 'development') {
-  expressPath = path.join(`${getResourcesPath()}/app.asar`, 'dist-electron/server/express-app.js');
+  expressPath = path.join(`${getResourcesPath()}/app`, 'dist-electron/server/express-app.js');
 }
 export let canClick = true;
 let externalWindows = [];
@@ -65,7 +65,7 @@ function startExpressServer() {
       ELECTRON_USER_DATA_PATH: app.getPath("userData")
     },
   } as any);
-  
+
   mainWindow!.webContents.send(ElectronIpcEvent.LOG, `Starting express server with path: ${expressPath}`);
 
   log(expressAppProcess.stdout);

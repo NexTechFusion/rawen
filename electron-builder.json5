@@ -1,11 +1,11 @@
 {
   appId: "rawen",
   artifactName: "${productName}.${version}.${ext}",
-  asar: true,
-  asarUnpack: ["public/**"],
+  asar: false,
   directories: {
     output: "release/${version}",
   },
+  buildDependenciesFromSource: true,
   extraResources: ["public/**/*"],
   files: ["dist-electron", "dist"],
   dmg: {

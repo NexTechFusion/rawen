@@ -7,7 +7,13 @@ export let pipeline;
 export let cos_sim;
 
 export function initTransformers() {
+    const userDataPath = process.env.ELECTRON_USER_DATA_PATH || "./";
+    console.log("userDataPath transfomers: ", userDataPath);
+
     const loaded = sync(`@xenova/transformers`);
+    loaded.env.localModelPath = userDataPath;
+    loaded.env.cacheDir = userDataPath;
+
     RawImage = loaded.RawImage;
     AutoProcessor = loaded.AutoProcessor;
     CLIPVisionModelWithProjection = loaded.CLIPVisionModelWithProjection;

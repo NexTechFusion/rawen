@@ -49,10 +49,6 @@ export class CodeFunctions {
         });
     }
 
-    static async getActiveWindowText(viaKey: boolean = true) {
-        return await CodeFunctions.execNode(`return getWindowText();`);
-    }
-
     static async waitUntilMarked(): Promise<any> {
         const result: any = await CodeFunctions.execElectron(`
                 return defineArea();

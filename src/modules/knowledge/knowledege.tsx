@@ -50,9 +50,9 @@ function Knowledege() {
   }
 
   function fetchImages() {
-    ImageVectorApi.getStoreInfo({}).then((images) => {
-      setImages(images);
-    });
+    // ImageVectorApi.getStoreInfo({}).then((images) => {
+    //   setImages(images);
+    // }); TODO
   }
 
   function uhError(message?: string) {

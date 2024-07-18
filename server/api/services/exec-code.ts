@@ -1,9 +1,7 @@
 import { Service } from "typedi";
-import { clipboard as clipboardSys } from "clipboard-sys";
 import { img2Text } from "../../../shared/utils/tesseract";
 import { clusterWords, } from "../../utils/general.utls";
 import { classifyText as zclassifyText, classifyImage as zclassifyImage } from "../../../scripts/transformer-wrapper";
-import robot from "@jitsi/robotjs";
 import { extractDataFromWebsite } from "../../../scripts/website-extractor";
 import { YoutubeTranscript } from "../../../scripts/youtube-transcript";
 
@@ -12,42 +10,8 @@ export class CodeExecService {
 
     public async exec(code: string, { actionState, input, sources, ...rest }) {
 
-        async function getMarkedText() {
-            const curr = await clipboardSys.readText();
-
-            if (process.platform === 'darwin') {
-                robot.keyTap('c', 'command');
-            } else {
-                robot.keyTap('c', 'control');
-            }
-
-            async function readClipboard5Secs(iteration) {
-                const result = await clipboardSys.readText();
-                if ((result == "" || result == null) && iteration < 3) {
-                    return readClipboard5Secs(iteration + 1);
-                }
-                return result;
-            }
-
-            const result = await readClipboard5Secs(0);
-
-            if (result == curr) {
-                return undefined;
-            }
-
-            return result;
-        }
-
         async function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
-        }
-
-        async function getWindowText() {
-            robot.keyTap('a', 'control');
-            await sleep(50);
-            const text = await getMarkedText();
-            robot.mouseClick();
-            return text;
         }
 
         async function extractTextFromImage(image, langs = "eng", parse = true) {

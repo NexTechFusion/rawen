@@ -179,7 +179,7 @@ export async function executeCode(code: string, { actionState, input, sources, .
         `)
     }
 
-    async function openApp(options: { url, width, height, convoId, tasks, prompt, focus, bringToFront, preload, disableAutoResize, keepInteraction, onCursor, takeMarkedText, closeOnBlur }) {
+    async function openApp(options: { url, width, height, convoId, tasks, prompt, focus, bringToFront, preload, disableAutoResize, keepInteraction, onCursor, closeOnBlur }) {
         return new Promise(async (resolve) => {
             const convoIdbefore = getConvoId();
 
@@ -190,12 +190,6 @@ export async function executeCode(code: string, { actionState, input, sources, .
             if (options?.keepInteraction) {
                 return resolve(null);
             } else {
-
-                if (options?.takeMarkedText) {
-                    const markedText = await getMarkedText();
-                    setInput(markedText);
-                }
-
                 const checkInterval = setInterval(async () => {
                     const convo = getConvoId();
 
@@ -208,11 +202,6 @@ export async function executeCode(code: string, { actionState, input, sources, .
         });
     }
 
-    async function getMarkedText() {
-        return await CodeFunctions.execNode(`
-            return await getMarkedText(); 
-      `);
-    }
 
     async function getAllDocs() {
         const docs = await VectorApi.getStoreInfo();
@@ -539,7 +528,6 @@ export async function executeCode(code: string, { actionState, input, sources, .
             ${addPrompt}
             ${addResult}
             ${sleep}
-            ${getMarkedText}
             ${openApp}
             ${closeApp}
             ${restoreApp}
