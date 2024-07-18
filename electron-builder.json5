@@ -1,7 +1,8 @@
 {
   appId: "rawen",
   artifactName: "${productName}.${version}.${ext}",
-  asar: false,
+  asar: true,
+  asarUnpack: ["public/**"],
   directories: {
     output: "release/${version}",
   },

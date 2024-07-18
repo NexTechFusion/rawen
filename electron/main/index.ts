@@ -30,7 +30,7 @@ const appName = app.getPath("exe");
 
 let expressPath;
 if (process.env.NODE_ENV !== 'development') {
-  expressPath = path.join(`${getResourcesPath()}/app`, 'dist-electron/server/express-app.js');
+  expressPath = path.join(`${getResourcesPath()}/app.asar`, 'dist-electron/server/express-app.js');
 }
 export let canClick = true;
 let externalWindows = [];
