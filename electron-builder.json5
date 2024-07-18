@@ -5,7 +5,6 @@
   directories: {
     output: "release/${version}",
   },
-  buildDependenciesFromSource: true,
   extraResources: ["public/**/*"],
   files: ["dist-electron", "dist"],
   dmg: {
