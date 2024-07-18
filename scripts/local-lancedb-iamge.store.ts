@@ -3,11 +3,11 @@ import { initTransformers, AutoProcessor, CLIPVisionModelWithProjection, RawImag
 import { retrive, update } from "./local-lancedb.store";
 import { MetricType } from "vectordb";
 import path from "node:path";
+import { EMBEDDING_IMAGE_MODEL } from "../config";
 let processor;
 let vision_model;
 let loaded = false;
 const sourceColumn = "image";
-const model_id = 'Xenova/clip-vit-base-patch32';
 
 export interface IngestImageRequest {
     id: string;
@@ -133,8 +133,8 @@ export async function retriveImages(srcOrBuffer: string | any, limit = 10, filte
 const ensureLoaded = async () => {
     if (loaded) return;
     await initTransformers();
-    processor = await AutoProcessor.from_pretrained(model_id);
-    vision_model = await CLIPVisionModelWithProjection.from_pretrained(model_id, {
+    processor = await AutoProcessor.from_pretrained(EMBEDDING_IMAGE_MODEL);
+    vision_model = await CLIPVisionModelWithProjection.from_pretrained(EMBEDDING_IMAGE_MODEL, {
         quantized: false,
     });
 

@@ -1,3 +1,4 @@
+import { SIMILARITY_MODEL, ZERO_SHOT_CLASSIFICATION_IMAGE_MODEL, ZERO_SHOT_CLASSIFICATION_MODEL } from '../config';
 import sync from 'import-sync';
 
 export let RawImage;
@@ -8,7 +9,6 @@ export let cos_sim;
 
 export function initTransformers() {
     const userDataPath = process.env.ELECTRON_USER_DATA_PATH || "./";
-    console.log("userDataPath transfomers: ", userDataPath);
 
     const loaded = sync(`@xenova/transformers`);
     loaded.env.localModelPath = userDataPath;
@@ -23,14 +23,14 @@ export function initTransformers() {
 
 export const classifyImage = async (image: string, labels: string[], model?: string) => {
     await initTransformers();
-    const classifier = await pipeline('zero-shot-classification', 'Xenova/clip-vit-base-patch32');
+    const classifier = await pipeline('zero-shot-classification', ZERO_SHOT_CLASSIFICATION_IMAGE_MODEL);
     const output = await classifier(image, labels);
     return output;
 }
 
 export const classifyText = async (text: string, labels: string[], model?: string) => {
     await initTransformers();
-    const classifier = await pipeline('zero-shot-classification', 'Xenova/nli-deberta-v3-xsmall');
+    const classifier = await pipeline('zero-shot-classification', ZERO_SHOT_CLASSIFICATION_MODEL);
     const output = await classifier(text, labels);
 
     return output;
@@ -38,8 +38,8 @@ export const classifyText = async (text: string, labels: string[], model?: strin
 
 export const getSimilarity = async (text1: string, text2: string | string[], model?: string) => {
     await initTransformers();
-    const embedding1 = await pipeline('feature-extraction', model ?? 'Xenova/all-MiniLM-L6-v2');
-    const embedding2 = await pipeline('feature-extraction', model ?? 'Xenova/all-MiniLM-L6-v2');
+    const embedding1 = await pipeline('feature-extraction', model ?? SIMILARITY_MODEL);
+    const embedding2 = await pipeline('feature-extraction', model ?? SIMILARITY_MODEL);
 
     const output = await embedding1(text1, { pooling: 'mean', normalize: true });
     const output2 = await embedding2(text2, { pooling: 'mean', normalize: true });

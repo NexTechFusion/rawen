@@ -4,7 +4,7 @@ import fs from "fs";
 import { ElectronIpcEvent } from "../../shared/models/electron-ipc-events";
 import { getPublicPath } from "../../shared/utils/resources";
 import path from "path";
-import { mainWindow } from ".";
+import { mainWindow } from "../main/index";
 
 function getAppstatePath() {
     const appPath = path.join(getPublicPath(), 'app-state.json');

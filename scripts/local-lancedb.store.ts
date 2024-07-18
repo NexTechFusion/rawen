@@ -1,6 +1,6 @@
 import { MetricType, OpenAIEmbeddingFunction, connect } from 'vectordb';
 import { initTransformers, pipeline } from './transformer-wrapper';
-import path from 'node:path';
+import { EMBEDDING_MODEL } from '../config';
 let embedFunction;
 export interface IngestOptions extends EmbeddFn {
     table: string;
@@ -42,7 +42,7 @@ async function ensureSet() {
 
 export async function useLocalEmbedding() {
     await initTransformers();
-    const pipe = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+    const pipe = await pipeline('feature-extraction', EMBEDDING_MODEL);
 
     const embed_fun: any = {};
     embed_fun.sourceColumn = 'pageContent';
@@ -58,7 +58,7 @@ export async function useLocalEmbedding() {
     embedFunction = embed_fun;
 }
 
-export async function getEmbedding(texts: string[], model = 'Xenova/all-MiniLM-L6-v2'): Promise<any> {
+export async function getEmbedding(texts: string[], model = EMBEDDING_MODEL): Promise<any> {
     await initTransformers();
     const pipe = await pipeline('feature-extraction', model);
     const output = await pipe(texts, { pooling: "mean", normalize: true });

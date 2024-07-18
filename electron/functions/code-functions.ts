@@ -1,15 +1,15 @@
 import { ipcMain, screen, app, Notification, clipboard, shell } from "electron";
-import { closeCursorWindow, collapseApp, isAppCollapsed, latestState, mainWindow, openExternalWindow, openFollowingWindow } from ".";
+import { closeCursorWindow, collapseApp, isAppCollapsed, latestState, mainWindow, openExternalWindow, openFollowingWindow } from "../main";
 import { ElectronIpcEvent } from "../../shared/models/electron-ipc-events";
 import { defineArear } from "./define-area-function";
-import { saveAppStateElectron } from "./state.handler";
 import { clearAreasE, markAreasE } from "./mark-areas-functon";
 import { clearContentPos, displayContentAtPos } from "./display-content-pos-functions";
-import { getScreenSize } from "./utils";
+import { getScreenSize } from "../main/utils";
+import { saveAppStateElectron } from "../handlers/state.handler";
 let closeOnBlur = null;
 let lastAppBounds = null;
 export function addCodeExecuterHandler() {
-    ipcMain.handle("execute-code", async (event, arg) => {
+    ipcMain.handle(ElectronIpcEvent.ELECTRON_CODE_EXEC, async (event, arg) => {
         const result = await executeCode(arg);
         return result;
     });
@@ -293,7 +293,7 @@ export function displayApp(options: DisplayAppOptions) {
     if (mainWindow.isMinimized()) mainWindow.restore();
 
     mainWindow.setBounds({ x: x, y: y, width: options.width, height: options.height });
-    mainWindow.setAlwaysOnTop(true);
+    mainWindow.setAlwaysOnTop(true, "pop-up-menu");
     mainWindow.show();
 
     if (options.closeOnBlur) {

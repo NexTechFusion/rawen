@@ -9,6 +9,7 @@ import { interactionStateChange, pushStreamOutput } from "@/modules/interaction/
 import { collapseApp } from "@/electron/electron-ipc-handlers";
 import { appState, changeState } from "@/state/app.state";
 import { MimicStore } from "@/modules/task/taskflow.model";
+import { ElectronIpcEvent } from "../../shared/models/electron-ipc-events";
 
 export class CodeFunctions {
 
@@ -25,7 +26,7 @@ export class CodeFunctions {
     static async execElectron(code) {
         return new Promise(async (resolve, reject) => {
             try {
-                const result = await ipcRenderer.invoke('execute-code', code);
+                const result = await ipcRenderer.invoke(ElectronIpcEvent.ELECTRON_CODE_EXEC, code);
                 resolve(result);
             } catch (err) {
                 reject(err);

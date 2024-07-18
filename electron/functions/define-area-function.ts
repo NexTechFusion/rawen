@@ -1,6 +1,6 @@
 import { BrowserWindow, desktopCapturer, ipcMain, screen } from "electron";
 import { join } from "path";
-import { getScreenSize } from "./utils";
+import { getScreenSize } from "../main/utils";
 
 async function getActiveScreen() {
     const { width, height, scaleFactor, id } = getScreenSize();

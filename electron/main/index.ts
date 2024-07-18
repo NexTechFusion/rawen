@@ -1,18 +1,18 @@
-import { app, BrowserWindow, globalShortcut, ipcMain, screen, desktopCapturer, shell, protocol, systemPreferences } from 'electron'
+import { app, BrowserWindow, globalShortcut, ipcMain, screen, shell, protocol } from 'electron'
 import { release } from 'node:os'
 import { join } from 'node:path'
 import { update } from './update'
 import { spawn } from 'node:child_process';
 import path from "path";
-import { addUpdateAppStateHandler, saveAppStateElectron } from './state.handler';
-import { addCodeExecuterHandler, removeBlutListener } from './code-functions';
+import { addUpdateAppStateHandler, saveAppStateElectron } from '../handlers/state.handler';
+import { addCodeExecuterHandler, removeBlutListener } from '../functions/code-functions';
 import { AppStateModel } from '../../shared/models/app-state.model';
 import { ElectronIpcEvent } from '../../shared/models/electron-ipc-events';
-import { addShortcutHandlerKeyListner } from './shortcut-handler';
+import { addShortcutHandlerKeyListner } from '../handlers/shortcut-handler';
 import { startExternalCodeServer, stopExternalCodeServer } from './code-server';
 import { getScreenSize } from './utils';
-import { clearAreasE } from './mark-areas-functon';
-import { clearContentPos } from './display-content-pos-functions';
+import { clearAreasE } from '../functions/mark-areas-functon';
+import { clearContentPos } from '../functions/display-content-pos-functions';
 import { Readable } from 'node:stream';
 import { getPublicPath, getResourcesPath } from '../../shared/utils/resources';
 import * as dotenv from 'dotenv';

@@ -3,8 +3,6 @@ import html2md from 'html-to-md'
 const axios = require("axios");
 const { load } = require("cheerio");
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import { getPublicPath } from "../shared/utils/resources";
-let userDataDir = getPublicPath() + "/browser-data";
 puppeteer.use(StealthPlugin());
 
 async function getBodyContent(url) {
@@ -45,7 +43,6 @@ async function getBodyContent(url) {
 async function google_search(query) {
     const browser = await puppeteer.launch({
         headless: "new",
-        userDataDir,
         args: ['--no-sandbox',
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',

@@ -5,8 +5,8 @@ import Progress from '@/components/update/Progress'
 import { Button } from '../ui/button'
 import { versionInfo } from '@/electron/electron.handler.cmp'
 import { Badge } from '../ui/badge'
-import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/ui/dialog";
-import { AlertTriangle, BadgeCheck, StopCircle } from 'lucide-react'
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { AlertTriangle, BadgeCheck } from 'lucide-react'
 
 const Update = () => {
   const [checking, setChecking] = useState(false)

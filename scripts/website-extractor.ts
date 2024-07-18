@@ -2,11 +2,9 @@ import url from 'url';
 import html2md from 'html-to-md'
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import { getPublicPath } from '../shared/utils/resources';
 import { load } from "cheerio";
 
 let excludedUrls = ["privacy", "datenschutz", "policy", "impressum", "imprint", "terms", "conditions", "agb"];
-let userDataDir = getPublicPath() + "/browser-data";
 
 export async function extractDataFromWebsite(baseUrl: string, maxDepth: number = 1) {
     puppeteer.use(StealthPlugin());
@@ -34,7 +32,6 @@ export async function extractDataFromWebsite(baseUrl: string, maxDepth: number =
 
             browser = await puppeteer.launch({
                 headless: "new",
-                userDataDir,
                 args: ['--no-sandbox',
                     '--disable-setuid-sandbox',
                     '--disable-dev-shm-usage',

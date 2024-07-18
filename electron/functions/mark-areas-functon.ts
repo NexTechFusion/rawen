@@ -1,6 +1,6 @@
 import { BrowserWindow } from "electron";
 import { join } from "path";
-import { getScreenSize } from "./utils";
+import { getScreenSize } from "../main/utils";
 
 export let overlayWindow;
 

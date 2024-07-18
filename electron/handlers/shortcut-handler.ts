@@ -1,4 +1,4 @@
-import { mainWindow } from '.';
+import { mainWindow } from '../main/index';
 import { ElectronIpcEvent } from '../../shared/models/electron-ipc-events';
 import { app, globalShortcut } from 'electron';
 import { mapKeycodesToKeysElectron } from '../../shared/utils/keymap.util';

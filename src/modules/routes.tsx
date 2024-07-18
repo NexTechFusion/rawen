@@ -19,7 +19,7 @@ export const Routing = () => {
           <Route path="/interact" element={<Interaction />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/brain" element={<Knowledege />} />
-          <Route path="/tasks" element={<RecordedTasksList />} />
+          {/* <Route path="/tasks" element={<RecordedTasksList />} /> */}
         </Routes>
       )}
     </>
