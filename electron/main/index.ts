@@ -58,12 +58,15 @@ function startExpressServer() {
 
   if (!expressPath) return;
 
+
   expressAppProcess = spawn(appName, [expressPath], {
     env: {
       ELECTRON_RUN_AS_NODE: "1",
       ELECTRON_USER_DATA_PATH: app.getPath("userData")
     },
   } as any);
+  
+  mainWindow!.webContents.send(ElectronIpcEvent.LOG, `Starting express server with path: ${expressPath}`);
 
   log(expressAppProcess.stdout);
   log(expressAppProcess.stderr);

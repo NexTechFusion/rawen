@@ -56,13 +56,14 @@ export function startExternalCodeServer() {
     server = require('http').Server(app);
     server.listen(PORT, () => {
         console.log(`Code exec server listening on port ${PORT}`);
+        mainWindow!.webContents.send(ElectronIpcEvent.LOG, `Code exec server listening on port ${PORT}`);
     });
 }
 
 export function stopExternalCodeServer() {
     if (server) {
         server.close(() => {
-            console.log('Server terminated');
+            console.log('Code server terminated');
         });
     } else {
         console.log('Server not running');

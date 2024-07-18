@@ -60,8 +60,13 @@ export class App {
 
   public close() {
     if (this.server) {
-      this.server.close(() => {
-        console.log('Server terminated');
+      this.server.close((err) => {
+        if (err) {
+          console.error('Error shutting down server:', err);
+          process.exit(1);
+        }
+        console.log('Express server shut down');
+        process.exit(0);
       });
     } else {
       console.log('Server not running');
@@ -84,9 +89,7 @@ process.on('unhandledRejection', (err) => {
 });
 
 process.on('SIGINT', () => {
-  console.log('SIGINT');
   app.close();
-  process.exit(0);
 });
 
 process.on('SIGTERM', () => {
