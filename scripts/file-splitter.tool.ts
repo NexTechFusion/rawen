@@ -1,3 +1,4 @@
+import "pdf-parse"; // Peer dep
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { CharacterTextSplitter } from "langchain/text_splitter";
 import readXlsxFile, { readSheetNames } from 'read-excel-file/node'
