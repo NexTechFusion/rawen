@@ -1,8 +1,8 @@
-import * as fs from "node:fs/promises";
+import * as fs from "fs";
 import { initTransformers, AutoProcessor, CLIPVisionModelWithProjection, RawImage } from "./transformer-wrapper";
-import { retrive, setEmbeddingFn, update } from "./local-lancedb.store";
+import { retrive, update } from "./local-lancedb.store";
 import { MetricType } from "vectordb";
-import { getPublicPath } from "../shared/utils/resources";
+import path from "node:path";
 let processor;
 let vision_model;
 let loaded = false;
@@ -35,14 +35,14 @@ export async function ingestImages(imgs: IngestImageRequest[], table = "images")
                     let binaryData = Buffer.from(m[2], 'base64');
                     srcOrBuffer = binaryData;
                 }
-                const imgPath = `${getPublicPath()}/lancedb/images`;
-                await fs.writeFile(`${imgPath}/${saveToName}`, srcOrBuffer);
+                const imgPath = `${getImagePath()}/lancedb/images`;
+                fs.writeFileSync(`${imgPath}/${saveToName}`, srcOrBuffer);
                 image = `${imgPath}/${saveToName}`;
             }
 
             await new Promise((resolve, reject) => setTimeout(resolve, 300));
             //check if file exists
-            await fs.access(image);
+            fs.accessSync(image);
 
             data.push({
                 id: genId,
@@ -76,6 +76,13 @@ export interface ImageStoreModel {
     path?: string;
 }
 
+function getImagePath() {
+    const userDataPath = process.env.ELECTRON_USER_DATA_PATH || "./";
+    const lancePath = path.join(userDataPath, "lancedb");
+
+    return lancePath;
+}
+
 export async function retriveImages(srcOrBuffer: string | any, limit = 10, filter?: string, where?: string, maxDistance = 0.1, table = "images") {
     await ensureLoaded();
     let isBuffer = false;
@@ -90,9 +97,9 @@ export async function retriveImages(srcOrBuffer: string | any, limit = 10, filte
             }
 
             isBuffer = true;
-            const imgPath = `${getPublicPath()}/lancedb/images`;
+            const imgPath = `${getImagePath()}/images`;
             const tmpFileName = imgPath + "/" + Math.random().toString(36).substring(7) + "TMP.png";
-            await fs.writeFile(tmpFileName, srcOrBuffer);
+            fs.writeFileSync(tmpFileName, srcOrBuffer);
             srcOrBuffer = tmpFileName;
         }
     }
@@ -109,7 +116,7 @@ export async function retriveImages(srcOrBuffer: string | any, limit = 10, filte
     });
 
     if (isBuffer) {
-        await fs.unlink(srcOrBuffer);
+        fs.unlinkSync(srcOrBuffer);
     }
 
     const filterdByScore = result.sort(
@@ -164,8 +171,6 @@ const embed_fn = {
 
 export async function getAll(config = null) {
     const storeId = config?.storeId ?? "global";
-
-    return []; //TODO
 
     const docsArray: ImageStoreModel[] = await retriveImages(
         "*",

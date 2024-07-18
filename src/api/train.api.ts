@@ -1,8 +1,8 @@
 import axios from "axios";
-import { serverURL } from "./api.config";
 import { SettingsModel } from "../../shared/models/settings.model";
 import { DocumentData } from "../../shared/models/app-state.model";
 import { appState } from "@/state/app.state";
+import { SERVER_URL } from "../../config";
 const baseUrl = "trainer";
 
 const getConfig = (config: any): SettingsModel => ({
@@ -12,7 +12,7 @@ const getConfig = (config: any): SettingsModel => ({
 export class TrainerApi {
     static async trainInput(prompt: string, metadata?: any, storeId?: string) {
         try {
-            await axios.post(`${serverURL}/${baseUrl}/trainInput`, {
+            await axios.post(`${SERVER_URL}/${baseUrl}/trainInput`, {
                 prompt,
                 config: getConfig({
                     metadata,
@@ -39,7 +39,7 @@ export class TrainerApi {
             formData.append('config', JSON.stringify(getConfig(config)));
             formData.append('filePaths', JSON.stringify(filePaths));
 
-            const response = await axios.post(`${serverURL}/${baseUrl}/parseFiles`, formData);
+            const response = await axios.post(`${SERVER_URL}/${baseUrl}/parseFiles`, formData);
             return response.data as DocumentData[];
         } catch (error) {
             console.error(error);
@@ -61,7 +61,7 @@ export class TrainerApi {
             formData.append('config', JSON.stringify(getConfig(config)));
             formData.append('filePaths', JSON.stringify(filePaths));
 
-            const response = await axios.post(`${serverURL}/${baseUrl}/trainFiles`, formData);
+            const response = await axios.post(`${SERVER_URL}/${baseUrl}/trainFiles`, formData);
             return response.data as DocumentData[];
         } catch (error) {
             console.error(error);
@@ -72,7 +72,7 @@ export class TrainerApi {
     static async trainWebsite(url: string, options: { maxDepth?: number }) {
         try {
             const request = { url, ...getConfig({}), ...options };
-            await axios.post(`${serverURL}/${baseUrl}/trainWebsite`, request);
+            await axios.post(`${SERVER_URL}/${baseUrl}/trainWebsite`, request);
         } catch (error) {
             console.error(error);
             return undefined;

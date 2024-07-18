@@ -34,7 +34,6 @@ if (process.env.NODE_ENV !== 'development') {
 }
 export let canClick = true;
 let externalWindows = [];
-let streamWindow: BrowserWindow | null = null;
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -296,21 +295,24 @@ app.on('before-quit', async () => {
   if (latestState) {
     saveAppStateElectron(latestState);
   }
-});
 
-app.on('window-all-closed', () => {
+  if (expressAppProcess) {
+    expressAppProcess.kill("SIGINT");
+  }
+
+  stopExternalCodeServer();
+
   mainWindow = null
   editorWindow = null
   curorWindow = null
-  expressAppProcess.kill();
-  stopExternalCodeServer();
+
   clearAreasE();
   clearContentPos();
 
-  if (streamWindow) streamWindow.close();
-  streamWindow = null
   externalWindows.forEach(w => w.close());
+});
 
+app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
 

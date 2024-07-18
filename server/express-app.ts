@@ -86,7 +86,7 @@ process.on('unhandledRejection', (err) => {
 process.on('SIGINT', () => {
   console.log('SIGINT');
   app.close();
-  process.exit(1);
+  process.exit(0);
 });
 
 process.on('SIGTERM', () => {
