@@ -5,17 +5,18 @@ import { update } from './update'
 import { spawn } from 'node:child_process';
 import path from "path";
 import { addUpdateAppStateHandler, saveAppStateElectron } from '../handlers/state.handler';
-import { addCodeExecuterHandler, removeBlutListener } from '../functions/code-functions';
+import { addCodeExecuterHandler, removeBlutListener } from './electron-code-executer';
 import { AppStateModel } from '../../shared/models/app-state.model';
 import { ElectronIpcEvent } from '../../shared/models/electron-ipc-events';
 import { addShortcutHandlerKeyListner } from '../handlers/shortcut-handler';
-import { startExternalCodeServer, stopExternalCodeServer } from './code-server';
+import { startExternalCodeServer, stopExternalCodeServer } from './external-code-server';
 import { getScreenSize } from './utils';
-import { clearAreasE } from '../functions/mark-areas-functon';
-import { clearContentPos } from '../functions/display-content-pos-functions';
+import { clearAreasE } from '../code-functions/mark-areas.functon';
+import { clearContentPos } from '../code-functions/display-content-pos.function';
 import { Readable } from 'node:stream';
 import { getPublicPath, getResourcesPath } from '../../shared/utils/resources';
 import * as dotenv from 'dotenv';
+import { checkOllama } from './ollama';
 dotenv.config();
 
 process.env.DIST_ELECTRON = join(__dirname, '../')
@@ -34,9 +35,6 @@ if (process.env.NODE_ENV !== 'development') {
 }
 export let canClick = true;
 let externalWindows = [];
-
-// Disable GPU Acceleration for Windows 7
-if (release().startsWith('6.1')) app.disableHardwareAcceleration()
 
 // Set application name for Windows 10+ notifications
 if (process.platform === 'win32') app.setAppUserModelId(app.getName())
@@ -273,6 +271,7 @@ async function createWindow() {
   startExpressServer();
   startExternalCodeServer();
   addCodeExecuterHandler();
+  // checkOllama();
 
   ipcMain.on(ElectronIpcEvent.OPEN_EXTERNAL_WINDOW, (_, args) => {
     openExternalWindow(args.filePath, args.options);

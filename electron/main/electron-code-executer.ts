@@ -1,11 +1,13 @@
 import { ipcMain, screen, app, Notification, clipboard, shell } from "electron";
-import { closeCursorWindow, collapseApp, isAppCollapsed, latestState, mainWindow, openExternalWindow, openFollowingWindow } from "../main";
+import { closeCursorWindow, collapseApp, isAppCollapsed, latestState, mainWindow, openExternalWindow, openFollowingWindow } from ".";
 import { ElectronIpcEvent } from "../../shared/models/electron-ipc-events";
-import { defineArear } from "./define-area-function";
-import { clearAreasE, markAreasE } from "./mark-areas-functon";
-import { clearContentPos, displayContentAtPos } from "./display-content-pos-functions";
-import { getScreenSize } from "../main/utils";
+import { defineArear } from "../code-functions/define-area.function";
+import { clearAreasE, markAreasE } from "../code-functions/mark-areas.functon";
+import { clearContentPos, displayContentAtPos } from "../code-functions/display-content-pos.function";
+import { getScreenSize } from "./utils";
 import { saveAppStateElectron } from "../handlers/state.handler";
+import { getPublicPath } from "shared/utils/resources";
+import { join } from "path";
 let closeOnBlur = null;
 let lastAppBounds = null;
 export function addCodeExecuterHandler() {
@@ -113,7 +115,7 @@ export async function executeCode(code: string, preDefinitions?: any) {
         const notification = new Notification({
             title: title,
             body: body,
-            icon: "public/favicon.ico"
+            icon: join(getPublicPath(), 'favicon.ico')
         });
         notification.show();
     }
