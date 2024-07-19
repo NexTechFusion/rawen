@@ -19,8 +19,22 @@ export const Routing = () => {
           <Route path="/interact" element={<Interaction />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/brain" element={<Knowledege />} />
-          {/* <Route path="/tasks" element={<RecordedTasksList />} /> */}
+          <Route path="/tasks" element={<RecordedTasksList />} />
         </Routes>
+      )}
+      {state == undefined && (
+        <>
+          <div className="app-loading-wrap">
+            <div className="Loader">
+              <img
+                src="mainlogo.png"
+                alt="rawen"
+                width="156px"
+                height="156px"
+              />
+            </div>
+          </div>
+        </>
       )}
     </>
   );

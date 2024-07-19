@@ -1,5 +1,5 @@
 import { MetricType, OpenAIEmbeddingFunction, connect } from 'vectordb';
-import { initTransformers, pipeline } from './transformer-wrapper';
+import { ensureTransfomersLoaded, pipeline } from './transformer-wrapper';
 import { EMBEDDING_MODEL } from '../config';
 let embedFunction;
 export interface IngestOptions extends EmbeddFn {
@@ -41,7 +41,7 @@ async function ensureSet() {
 }
 
 export async function useLocalEmbedding() {
-    await initTransformers();
+    await ensureTransfomersLoaded();
     const pipe = await pipeline('feature-extraction', EMBEDDING_MODEL);
 
     const embed_fun: any = {};
@@ -59,7 +59,7 @@ export async function useLocalEmbedding() {
 }
 
 export async function getEmbedding(texts: string[], model = EMBEDDING_MODEL): Promise<any> {
-    await initTransformers();
+    await ensureTransfomersLoaded();
     const pipe = await pipeline('feature-extraction', model);
     const output = await pipe(texts, { pooling: "mean", normalize: true });
     return output.tolist();

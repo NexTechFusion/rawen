@@ -252,7 +252,7 @@ const Llm: React.FC<Llmprops> = ({ llm, setLlm, updateCommands }) => {
   return (
     <>
       <div className="flex flex-1 flex-col">
-        <div className="flex-1 max165h">
+        <div className="flex-1 max165h  just-drag">
           <SettingsList />
         </div>
         <div className="flex border-t py-2">

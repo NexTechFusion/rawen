@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { initTransformers, AutoProcessor, CLIPVisionModelWithProjection, RawImage } from "./transformer-wrapper";
+import { ensureTransfomersLoaded, AutoProcessor, CLIPVisionModelWithProjection, RawImage } from "./transformer-wrapper";
 import { retrive, update } from "./local-lancedb.store";
 import { MetricType } from "vectordb";
 import path from "node:path";
@@ -132,7 +132,7 @@ export async function retriveImages(srcOrBuffer: string | any, limit = 10, filte
 
 const ensureLoaded = async () => {
     if (loaded) return;
-    await initTransformers();
+    await ensureTransfomersLoaded();
     processor = await AutoProcessor.from_pretrained(EMBEDDING_IMAGE_MODEL);
     vision_model = await CLIPVisionModelWithProjection.from_pretrained(EMBEDDING_IMAGE_MODEL, {
         quantized: false,

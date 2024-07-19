@@ -9,6 +9,7 @@ import { callChatChain } from "./basic-llm-chat";
 import { getLLMModel } from "../../../shared/utils/llm-model";
 import { RemoteEmbeddings } from "./remove-embeddings";
 import { checkTextsMatchLLM } from "./llm-matcher";
+import { EMBEDDING_MODEL } from "../../../config";
 
 export async function callRag(
     query: string,
@@ -22,7 +23,7 @@ export async function callRag(
     try {
         const model = getLLMModel(llmSetting);
         const embeddings = new RemoteEmbeddings({
-            model: "Xenova/all-MiniLM-L6-v2",
+            model: EMBEDDING_MODEL,
         });
         const response = await langchainRag(query, model, docs, embeddings, callback, abortController, strict, history);
         return response;

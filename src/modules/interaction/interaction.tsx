@@ -244,7 +244,7 @@ function Interaction() {
         res.fileBuffer
       );
       CodeFunctions.addResult(
-        `<img class="w-full" src="${toBase64(
+        `<img class="w-full pointer-events-none" src="${toBase64(
           res.fileBuffer
         )}" /> Extracted text : <br> ${imgageData.text}`
       );

@@ -254,6 +254,11 @@ async function createWindow() {
   })
   mainWindow.setAlwaysOnTop(true, "pop-up-menu");
 
+  addUpdateAppStateHandler(mainWindow, (state) => {
+    addShortcuthandlers(state);
+    latestState = state;
+  });
+
   if (url) {
     await mainWindow.loadURL(url)
   } else {
@@ -268,10 +273,6 @@ async function createWindow() {
   startExpressServer();
   startExternalCodeServer();
   addCodeExecuterHandler();
-  addUpdateAppStateHandler(mainWindow, (state) => {
-    addShortcuthandlers(state);
-    latestState = state;
-  });
 
   ipcMain.on(ElectronIpcEvent.OPEN_EXTERNAL_WINDOW, (_, args) => {
     openExternalWindow(args.filePath, args.options);

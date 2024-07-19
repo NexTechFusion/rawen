@@ -19,9 +19,24 @@ export function saveAppStateElectron(state: any) {
         console.log(err);
     }
 }
-
 export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: AppStateModel) => void) {
-    setTimeout(() => {
+    let didFinishLoadExecuted = false;
+
+    const fallbackTimeout = setTimeout(() => {
+        if (!didFinishLoadExecuted) {
+            executeDidFinishLoadLogic();
+        }
+    }, 2000);
+
+    win.webContents.on('did-finish-load', () => {
+        if (!didFinishLoadExecuted) {
+            didFinishLoadExecuted = true;
+            clearTimeout(fallbackTimeout);
+            executeDidFinishLoadLogic();
+        }
+    });
+
+    function executeDidFinishLoadLogic() {
         try {
             callback(pushStateToApp());
             win.webContents.send(ElectronIpcEvent.VERSION_INFO, {
@@ -29,28 +44,24 @@ export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: A
                 name: app.getName()
             });
 
-            setTimeout(() => {
-                ipcMain.on(ElectronIpcEvent.UPDATE_STATE, (_, state) => {
-                    if (state != null) {
-                        callback(state);
-                    }
-                });
-            }, 1000);
+            ipcMain.on(ElectronIpcEvent.UPDATE_STATE, (_, state) => {
+                if (state != null) {
+                    callback(state);
+                }
+            });
         } catch (err) {
             console.log(err);
         }
-    }, 1000);
+    }
 }
 
 export function pushStateToApp() {
     try {
-        mainWindow!.webContents.send(ElectronIpcEvent.LOG, getAppstatePath()); // TODO RM
         const jsonData = fs.readFileSync(getAppstatePath(), 'utf-8');
         const state = JSON.parse(jsonData);
         mainWindow?.webContents.send(ElectronIpcEvent.INITAL_STATE, state);
         return state;
     } catch (error) {
         console.error('Failed to load state:', error);
-        mainWindow!.webContents.send(ElectronIpcEvent.LOG, error); // TODO RM
     }
 }

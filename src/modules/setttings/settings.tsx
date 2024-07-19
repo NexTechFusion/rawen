@@ -9,12 +9,12 @@ function Settings() {
   const { state, dispatch } = useAppContext();
 
   return (
-    <Tabs defaultValue="general" className="w-full flex-1 flex flex-col">
+    <Tabs defaultValue="general" className="w-full flex-1 flex flex-col just-drag">
       <TabsList className="w-full">
         <TabsTrigger value="general">General</TabsTrigger>
-        <TabsTrigger value="shortcuts">Shortcuts</TabsTrigger>
-        <TabsTrigger value="keyvalue">Keys</TabsTrigger>
         <TabsTrigger value="tasks">Commands</TabsTrigger>
+        <TabsTrigger value="keyvalue">Keys</TabsTrigger>
+        <TabsTrigger value="shortcuts">Shortcuts</TabsTrigger>
       </TabsList>
       <TabsContent value="general">
         <div className="p-2">

@@ -2,10 +2,7 @@ import { Menubar, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
 import {
   BrainCircuit,
   MessageCircle,
-  MenuSquare,
   Settings,
-  Terminal,
-  X,
   ClipboardListIcon,
 } from "lucide-react";
 import {
@@ -18,7 +15,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { randomUUID } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { addNavigateListener } from "@/code/code-executer.util";
-import { ipcRenderer } from "electron";
 import { useAppContext } from "@/state/app.state";
 import { AppCollapse } from "./app-collapse";
 
@@ -62,7 +58,7 @@ function Nav() {
                 <p>Knowledge</p>
               </TooltipContent>
             </Tooltip>
-            <Tooltip>
+            {/* <Tooltip>
               <TooltipTrigger asChild>
                 <MenubarTrigger>
                   <Link to="/tasks">
@@ -73,7 +69,7 @@ function Nav() {
               <TooltipContent>
                 <p>Worflows</p>
               </TooltipContent>
-            </Tooltip>
+            </Tooltip> */}
             <Tooltip>
               <TooltipTrigger asChild>
                 <MenubarTrigger>

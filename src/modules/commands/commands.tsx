@@ -221,7 +221,7 @@ function Commands() {
   return (
     <>
       <div className=" flex flex-1 flex-col">
-        <div className="container max165h py-2">
+        <div className="container max165h  just-drag py-2 px-0">
           <div className="grid m-auto grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
             {filtered.map((command, i) => (
               <>

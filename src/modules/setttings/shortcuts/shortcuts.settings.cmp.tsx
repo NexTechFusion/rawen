@@ -91,7 +91,7 @@ const ShortcutSettings: React.FC<ShortcutSettingsProps> = ({ viewModel, update }
 
     return (
         <div className="flex flex-1 flex-col mt-1">
-            <div className="flex-1 max165h">
+            <div className="flex-1 max165h just-drag">
                 {filtered.map((shortcut) => (
                     <div key={shortcut.id} className="rounded-lg border p-1 mb-2 text-sm">
                         <div className="flex flex-1">

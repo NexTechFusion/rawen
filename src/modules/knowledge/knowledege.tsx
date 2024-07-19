@@ -43,6 +43,14 @@ function Knowledege() {
     }
   }, [files]);
 
+  useEffect(() => {
+    if (trainingSucceeded) {
+      setTimeout(() => {
+        setTrainingSucceeded(false);
+      }, 3000);
+    }
+  }, [trainingSucceeded]);
+
   function fetchDocs() {
     VectorApi.getStoreInfo().then((allDocs) => {
       setDocs(allDocs);
@@ -204,7 +212,7 @@ function Knowledege() {
         <div
           className={
             `${dragActive ? "bg-accent" : ""}` +
-            " flex items-center justify-center h-full w-full"
+            " flex items-center justify-center h-full w-full just-drag"
           }
           onDragEnter={handleDragEnter}
           onSubmit={(e) => e.preventDefault()}
@@ -314,7 +322,10 @@ function Knowledege() {
             </form>
           </div>
 
-          <img src="thinking.png" className="absolute bottom-0 right-0 opacity-20 w-48" />
+          <img
+            src="thinking.png"
+            className="absolute bottom-0 right-0 opacity-5 w-48 -z-10"
+          />
         </div>
       </>
     );
