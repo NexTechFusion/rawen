@@ -1,5 +1,4 @@
 import { app, BrowserWindow, globalShortcut, ipcMain, screen, shell, protocol } from 'electron'
-import { release } from 'node:os'
 import { join } from 'node:path'
 import { update } from './update'
 import { spawn } from 'node:child_process';

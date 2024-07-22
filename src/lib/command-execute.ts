@@ -61,7 +61,9 @@ export async function execCommands(initalPrompt: string, commands: CommandModel[
         }
 
         // add strart streaming
-        addInteractionPrompt(getConvoId(), initalPrompt, []);
+        if (convoId !== false) {
+            addInteractionPrompt(getConvoId(), initalPrompt, []);
+        }
 
         // if no commands are given try to get the best command
         if (!commands || commands.length == 0) {

@@ -28,32 +28,14 @@ export function AppCollapse() {
       <div className={"" + (collapsed ? "collapse-app-active" : "")}>
         {collapsed ? (
           <>
-            <div className="dragger flex justify-center items-center">
-              <div className="left-0 w-full z-30 flex top-1 px-1 absolute">
-                <div className="flex-1">
-                  {/* <Wand
-                    className="cursor-pointer no-drag h-4 w-4 hover:text-primary rounded-md"
-                    onClick={() => onScreenShot()}
-                  /> */}
-                </div>
-                {/* <Mic
-                  onClick={onCollapseOverall}
-                  className="cursor-pointer no-drag h-4 w-4 hover:text-primary bg-background rounded-md"
-                /> */}
-              </div>
-              <div className="left-0 w-full z-30 flex bottom-1 px-1 absolute">
-                <div className="flex-1">
-                  {/* <Camera
-                    className="cursor-pointer no-drag h-4 w-4 hover:text-primary bg-background rounded-md"
-                    onClick={() => onScreenShot()}
-                  /> */}
-                </div>
+            <div className="flex justify-center items-center p-2 dragger">
+              <div className="left-0 w-full z-30 flex bottom-1 px-1 absolute justify-end">
                 <Maximize
                   onClick={onCollapseOverall}
-                  className="cursor-pointer no-drag h-4 w-4 hover:text-primary bg-background rounded-md"
+                  className="cursor-pointer no-drag h-4 w-4 hover:text-primary bg-background rounded-md flex bg-black"
                 />
               </div>
-              <img src="./mainlogo.png" className="p-1" />
+              <img src="./mainlogo.png" className="dragger mr-4" />
             </div>
           </>
         ) : (

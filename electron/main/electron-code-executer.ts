@@ -6,7 +6,7 @@ import { clearAreasE, markAreasE } from "../code-functions/mark-areas.functon";
 import { clearContentPos, displayContentAtPos } from "../code-functions/display-content-pos.function";
 import { getScreenSize } from "./utils";
 import { saveAppStateElectron } from "../handlers/state.handler";
-import { getPublicPath } from "shared/utils/resources";
+import { getPublicPath } from "../../shared/utils/resources";
 import { join } from "path";
 let closeOnBlur = null;
 let lastAppBounds = null;

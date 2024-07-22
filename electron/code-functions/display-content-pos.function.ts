@@ -1,6 +1,7 @@
 import { BrowserWindow } from "electron";
 import { join } from "path";
 import { getScreenSize } from "../main/utils";
+import { getPublicPath } from "../../shared/utils/resources";
 
 export let window;
 
@@ -42,7 +43,7 @@ export function displayContentAtPos(content: ContentPosition[], options = {
         window.setIgnoreMouseEvents(true)
     }
 
-    window.loadFile(join(process.env.PUBLIC, 'templates/content-at-positions.html'));
+    window.loadFile(join(getPublicPath(), 'templates/content-at-positions.html'));
 
     window.webContents.once('did-finish-load', () => {
         window.webContents.send('contents', content);

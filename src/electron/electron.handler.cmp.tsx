@@ -71,7 +71,7 @@ const ElectronMarkHandlerComponent: React.FC = () => {
             const commands = shortCutData.cmdIds
               .map((id) => state.commands.find((t) => t.id === id))
               .filter((t) => t != null);
-            await execCommands(args, commands, true);
+            await execCommands(args, commands, false);
           }
         }
       );

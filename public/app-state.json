@@ -11,7 +11,18 @@
     "sourceEndpoints": [],
     "inferenceEndpoints": []
   },
-  "shortcuts": [],
+  "shortcuts": [
+    {
+      "id": "30b7ed0a-dbb5-4e47-bb9c-abe371e2e7db",
+      "name": "Text or Code fix suggestion",
+      "shortcut": [
+        "F2"
+      ],
+      "cmdIds": [
+        "do5vzsco6"
+      ]
+    }
+  ],
   "llmResults": [],
   "keyValues": {
     "settings": [
@@ -45,6 +56,23 @@
     ]
   },
   "commands": [
+    {
+      "id": "do5vzsco6",
+      "name": "Fix text or code (shortcut)",
+      "description": "Fixes the directly on shortcut",
+      "actions": [
+        {
+          "id": "6t1c1gvtr",
+          "type": "DefaultLLM",
+          "endpointId": "OLLAMA"
+        },
+        {
+          "id": "s1eg8bnnx",
+          "type": "CallJsScript",
+          "name": "fixText.js"
+        }
+      ]
+    },
     {
       "id": "ols429ag1",
       "name": "Summarize website",
