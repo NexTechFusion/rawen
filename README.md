@@ -1,13 +1,13 @@
 <center>
-<div style="display:flex;justify-content:center; ">
-  <img src="https://i.ibb.co/8xmfNxD/Rawenio.png" width="400" height="400" />
-</div>
 <h1 style="color:orange">
  Rawen 
 <img src="public/mainlogo.png" width="64" height="64" />
 </h1>
+<div style="display:flex;justify-content:center; ">
+  <img src="https://i.ibb.co/8xmfNxD/Rawenio.png" width="400" height="400" />
+</div>
 
-### A desktop app that executes AI driven commands
+### Simple : A desktop app that executes AI driven commands
 
 Work in progress 🚧
 
@@ -16,8 +16,8 @@ Work in progress 🚧
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
-- [Introduction](#introduction)
 - [Overview](#overview)
+- [Command execution - Basic Flow](#command-execution---basic-flow)
 - [General Features](#general-features)
 - [Installation](#installation)
 - [Dev-Mode](#dev-mode)
@@ -25,16 +25,15 @@ Work in progress 🚧
 - [TY Technologies](#ty-technologies)
   - [Disclaimer:](#disclaimer)
 
-## Introduction
-
-Super special and feature rich functions built in a desktop application that executes commands that are tied to those functions (Mostly AI driven).
-No external servers required. All data is stored locally.
-
 ## Overview
 
 <img src="https://i.ibb.co/Wx4wgKK/overview.png" width="550" height="270" />
 
 Code and api servers will run on startup locally on the users machine. <br> <small>(TODO : Think about this) </small>
+
+## Command execution - Basic Flow
+
+<img src="https://i.ibb.co/ChWc3G7/flow.png" width="350" height="360" />
 
 ## General Features
 
@@ -75,4 +74,4 @@ At the menu "Key" set a default LLM and a key if needed.
 Rawen is a highly experimental project to discover the potential of AI as a desktop copilot.
 It should form a foundation for further research and development on our main objective.
 
-The code may be spaghetti but AI will fix this in the future.
+The code is spaghetti but AI will fix this in the future.

@@ -14,8 +14,8 @@ import { clearAreasE } from '../code-functions/mark-areas.functon';
 import { clearContentPos } from '../code-functions/display-content-pos.function';
 import { Readable } from 'node:stream';
 import { getPublicPath, getResourcesPath } from '../../shared/utils/resources';
+import { waitForAllPermissions } from './mac-permissions';
 import * as dotenv from 'dotenv';
-import { checkOllama } from './ollama';
 dotenv.config();
 
 process.env.DIST_ELECTRON = join(__dirname, '../')
@@ -270,6 +270,15 @@ async function createWindow() {
   startExpressServer();
   startExternalCodeServer();
   addCodeExecuterHandler();
+
+  //MAC OS ask permission
+  setTimeout(() => {
+    if (process.platform === 'darwin') {
+      console.log("Waiting for permissions");
+      waitForAllPermissions();
+    }
+  }
+    , 3000);
   // checkOllama();
 
   ipcMain.on(ElectronIpcEvent.OPEN_EXTERNAL_WINDOW, (_, args) => {
