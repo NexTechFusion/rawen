@@ -22,7 +22,7 @@
     "build-server": "tsc -p tsconfig.server.json --outDir dist-electron"
   },
   "dependencies": {
-    "node-mac-permissions": "^2.4.0",
+    "node-window-manager": "^2.2.4",
     "clipboard-sys": "^1.2.1",
     "@jitsi/robotjs": "^0.6.13",
     "@langchain/google-genai": "^0.0.23",

@@ -2,7 +2,7 @@
   appId: "rawen",
   artifactName: "${productName}.${version}.${ext}",
   asar: true,
-  asarUnpack: ["public/**", "node_modules/node-mac-permissions/build"],
+  asarUnpack: ["public/**"],
   directories: {
     output: "release/${version}",
   },
