@@ -43,8 +43,12 @@ const ElectronMarkHandlerComponent: React.FC = () => {
           requestId: req.requestId,
         });
       } catch (e) {
-        alert("Error: " + e.message);
-        ipcRenderer.send(ElectronIpcEvent.CODE_EXEC_RESULT, { error: e });
+        console.error(e);
+        ipcRenderer.send(ElectronIpcEvent.CODE_EXEC_RESULT, {
+          error: e,
+          result: null,
+          requestId: req.requestId,
+        });
       }
     });
 
