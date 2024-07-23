@@ -38,6 +38,7 @@ import { CallJsScriptActionPanel } from "./call-js-script";
 import LmmSummarzieActionPanel from "./lmm-summarize.action";
 import LmmWebsearchActionPanel from "./lmm-websearch.action";
 import DefaultLmmActionPanel from "./default-llm-action";
+import { DraggableComponent } from "@/components/ui/app-dragable-container";
 
 function Commands() {
   const { state, dispatch } = useAppContext();
@@ -221,7 +222,7 @@ function Commands() {
   return (
     <>
       <div className=" flex flex-1 flex-col">
-        <div className="container max165h  just-drag py-2 px-0">
+        <DraggableComponent className="container max165h py-2 px-0">
           <div className="grid m-auto grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
             {filtered.map((command, i) => (
               <>
@@ -613,7 +614,7 @@ function Commands() {
               </>
             ))}
           </div>
-        </div>
+        </DraggableComponent>
         <div className="flex border-t py-2 items-center">
           <Button variant="default" onClick={addCommand}>
             + Add

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Edit2Icon, MinusCircle, Trash, X } from "lucide-react";
 import { appState } from "@/state/app.state";
 import { Badge } from "@/components/ui/badge";
+import { DraggableComponent } from "@/components/ui/app-dragable-container";
 
 type Llmprops = {
   llm: KeyValueSettings;
@@ -252,9 +253,9 @@ const Llm: React.FC<Llmprops> = ({ llm, setLlm, updateCommands }) => {
   return (
     <>
       <div className="flex flex-1 flex-col">
-        <div className="flex-1 max165h  just-drag">
+        <DraggableComponent className="flex-1 max165h">
           <SettingsList />
-        </div>
+        </DraggableComponent>
         <div className="flex border-t py-2">
           <Button variant="default" onClick={addSetting}>
             + Add

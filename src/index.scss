@@ -100,9 +100,6 @@
   -webkit-app-region: no-drag;
 }
 
-*{
-  -webkit-app-region: no-drag;
-}
 
 html {
   height: 100%;
@@ -206,6 +203,10 @@ html {
 
 .just-drag {
   -webkit-app-region: drag;
+}
+
+button, input, textarea, select, .cursor-pointer  {
+  -webkit-app-region: no-drag;
 }
 
 .divider {

@@ -9,7 +9,7 @@ function Settings() {
   const { state, dispatch } = useAppContext();
 
   return (
-    <Tabs defaultValue="general" className="w-full flex-1 flex flex-col just-drag">
+    <Tabs defaultValue="general" className="w-full flex-1 flex flex-col">
       <TabsList className="w-full">
         <TabsTrigger value="general">General</TabsTrigger>
         <TabsTrigger value="tasks">Commands</TabsTrigger>

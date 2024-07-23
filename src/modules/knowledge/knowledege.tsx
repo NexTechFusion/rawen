@@ -20,6 +20,7 @@ import { VectorApi } from "@/api/vector.api";
 import KnowledgeHistory from "./knowledge-history";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImageVectorApi } from "@/api/image-vector.api";
+import { DraggableComponent } from "@/components/ui/app-dragable-container";
 
 function Knowledege() {
   const [dragActive, setDragActive] = useState<boolean>(false);
@@ -209,10 +210,10 @@ function Knowledege() {
   function TrainPanel() {
     return (
       <>
-        <div
+        <DraggableComponent
           className={
             `${dragActive ? "bg-accent" : ""}` +
-            " flex items-center justify-center h-full w-full just-drag"
+            " flex items-center justify-center h-full w-full flex-1 max165h"
           }
           onDragEnter={handleDragEnter}
           onSubmit={(e) => e.preventDefault()}
@@ -326,7 +327,7 @@ function Knowledege() {
             src="thinking.png"
             className="absolute bottom-0 right-0 opacity-5 w-48 -z-10"
           />
-        </div>
+        </DraggableComponent>
       </>
     );
   }

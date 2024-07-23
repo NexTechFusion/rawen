@@ -618,7 +618,7 @@ function Interaction() {
             <FileList files={fileList} />
           </div>
           <div
-            className="p-2 flex-1 overflow-auto h-full max-h-full"
+            className="p-2 flex-1 overflow-auto h-full max-h-full dragger"
             id="result-container"
           >
             {!isLoading && <EmptyResultsPanel />}
