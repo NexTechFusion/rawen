@@ -66,11 +66,6 @@ const KnowledgeHistory: React.FC<Props> = ({
     let title = doc ?? "";
     const objs: any = docs[doc] as [];
 
-    // if (title.indexOf(".") > 0) {
-    //     title = title.substring(0, title.lastIndexOf("."));
-    // }
-
-    // const fullText = objs?.map((o: any) => o.pageContent).join("")?.replace(/\n/gi, '<br/>') ?? "";
     const fullText = objs?.map((o: any) => o.pageContent).join("") ?? "";
     const date = new Date(objs[0]?.metadata?.date).toLocaleDateString();
     const dateStr = dayjs(objs[0]?.metadata?.date).fromNow();
@@ -203,15 +198,16 @@ const KnowledgeHistory: React.FC<Props> = ({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {Object.keys(docs).map((doc: any) => (
-                <TableRow
-                  onClick={() => onClickSelected(doc)}
-                  className="cursor-pointer"
-                >
-                  {" "}
-                  <Content doc={doc} />{" "}
-                </TableRow>
-              ))}
+              {docs &&
+                Object.keys(docs).map((doc: any) => (
+                  <TableRow
+                    onClick={() => onClickSelected(doc)}
+                    className="cursor-pointer"
+                  >
+                    {" "}
+                    <Content doc={doc} />{" "}
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TooltipProvider>
