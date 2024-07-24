@@ -405,9 +405,9 @@ export async function executeCode(code: string, { actionState, input, sources, .
         `)
     }
 
-    async function displayCursorContent(content) {
+    async function displayCursorContent(content, encoded) {
         await CodeFunctions.execElectron(`
-            displayCursorWindow(\`${content}\`);
+            displayCursorWindow(\`${content}\`, ${encoded});
         `)
     }
 

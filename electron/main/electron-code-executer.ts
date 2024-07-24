@@ -95,7 +95,12 @@ export async function executeCode(code: string, preDefinitions?: any) {
         displayApp(options);
     }
 
-    function displayCursorWindow(content) {
+    function displayCursorWindow(content, encoded) {
+
+        if (encoded) {
+            content = decodeURI(content);
+        }
+
         openFollowingWindow(content);
     }
 

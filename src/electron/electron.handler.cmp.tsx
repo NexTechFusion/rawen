@@ -43,7 +43,7 @@ const ElectronMarkHandlerComponent: React.FC = () => {
           requestId: req.requestId,
         });
       } catch (e) {
-        console.error(e);
+        console.error("CODE", req.code, " ERROR : ", e);
         ipcRenderer.send(ElectronIpcEvent.CODE_EXEC_RESULT, {
           error: e,
           result: null,

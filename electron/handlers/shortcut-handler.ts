@@ -22,6 +22,7 @@ export function addShortcutHandlerKeyListner(shortcuts) {
             const shortcutKeysStr = shortcut.shortcut.join("+").toLowerCase();
             const pressedKeysStr = pressedKeys.join("+").toLowerCase();
             if (pressedKeysStr === shortcutKeysStr) {
+                pressedKeys = [];
                 mainWindow!.webContents.send(`${ElectronIpcEvent.CODE_RESULT}${shortcut.id}`, undefined);
             }
         });
@@ -33,20 +34,21 @@ export function addShortcutHandlerKeyListner(shortcuts) {
         }
 
         if (e.state == "UP") {
-            
             if (isDoingShortcut) {
                 isDoingShortcut = false;
                 checkShortCut();
-                pressedKeys = pressedKeys.filter((key) => key !== e.name);
-            }else{
-                pressedKeys = pressedKeys.filter((key) => key !== e.name);
             }
-            
+
+            pressedKeys = [];
             mainWindow!.webContents.send(ElectronIpcEvent.KEY_RELEASED, e.name);
         } else {
             isDoingShortcut = true;
             pressedKeys.push(e.name);
             mainWindow!.webContents.send(ElectronIpcEvent.KEY_PRESSED, e.name);
+
+            setTimeout(() => {
+                pressedKeys = pressedKeys.filter((key) => key !== e.name);
+            }, 2000);
         }
     });
 

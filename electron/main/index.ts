@@ -201,7 +201,7 @@ export function openFollowingWindow(content) {
 
     let { x, y } = screen.getCursorScreenPoint();
     let currentDisplay = screen.getDisplayNearestPoint({ x, y });
-    curorWindow.setPosition(x - currentDisplay.bounds.x + 32, y - currentDisplay.bounds.y + 20);
+    curorWindow.setPosition(x - currentDisplay.bounds.x + 20, y - currentDisplay.bounds.y + 20);
   }, 10);
 
   curorWindow.webContents.on('did-finish-load', () => {
