@@ -233,7 +233,7 @@ async function createWindow() {
   mainWindow = new BrowserWindow({
     title: 'rawen',
     autoHideMenuBar: true,
-    width: 400,
+    width: 450,
     height: 550,
     frame: false,
     alwaysOnTop: true,

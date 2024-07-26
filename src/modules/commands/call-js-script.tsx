@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { useRef, useState } from "react";
 import fs from "fs";
 import { getPublicPath } from "../../../shared/utils/resources";
+import { join } from "path";
 
 interface IProps {
   model: JsScripActionModel;
@@ -21,8 +22,9 @@ export const CallJsScriptActionPanel: React.FC<IProps> = ({
     const file = e.target.files[0];
 
     //copy the file to the public folder
-    const newPath = `${getPublicPath()}/scripts/${file.name}`;
-    fs.copyFileSync(file.path, newPath);
+    const currentDir = process.cwd();
+    const fullPath = join(currentDir, getPublicPath(), "scripts", file.name);
+    fs.copyFileSync(file.path, fullPath);
     modelChange({ ...model, name: file.name });
     setPath(file.name);
   }

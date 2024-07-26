@@ -30,19 +30,17 @@ export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: A
     }, 3000);
 
     win.webContents.on('did-finish-load', () => {
-        if (!didFinishLoadExecuted) {
-            didFinishLoadExecuted = true;
-            clearTimeout(fallbackTimeout);
-            executeDidFinishLoadLogic();
-
-            if (process.platform === 'darwin') {
-                askPermissions();
-            }
-        }
+        didFinishLoadExecuted = true;
+        clearTimeout(fallbackTimeout);
+        executeDidFinishLoadLogic();
     });
 
     function executeDidFinishLoadLogic() {
         try {
+            if (process.platform === 'darwin') {
+                askPermissions();
+            }
+
             callback(pushStateToApp());
             win.webContents.send(ElectronIpcEvent.VERSION_INFO, {
                 version: app.getVersion(),

@@ -10,6 +10,7 @@ import { addInteractionPrompt, addInteractionContentR, isStreamActive, assignStr
 import { setCanClick } from "@/electron/electron-ipc-handlers";
 import { CodeFunctions } from "@/code/code-functions.util";
 import { getPublicPath } from "../../shared/utils/resources";
+import path from "node:path";
 export enum DefaultCommandIds {
     LOCAL_CHAT = "localChat",
 }
@@ -273,7 +274,9 @@ async function callVector(input: string, action: VectorRequestActionModel, actio
 async function callJsScript(input: string, action: JsScripActionModel, actionstate: ActionState) {
     process.env.prompt = input;
     try {
-        const { main } = require(`${getPublicPath()}/scripts/${action.name}`);
+        const currentDir = process.cwd();
+        const fullPath = path.join(currentDir, getPublicPath(), 'scripts', action.name);
+        const { main } = require(fullPath);
 
         if (main) {
             const result = await main(input, actionstate);
