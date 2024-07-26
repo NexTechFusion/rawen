@@ -9,7 +9,7 @@ import { AppStateModel } from '../../shared/models/app-state.model';
 import { ElectronIpcEvent } from '../../shared/models/electron-ipc-events';
 import { addShortcutHandlerKeyListner } from '../handlers/shortcut-handler';
 import { startExternalCodeServer, stopExternalCodeServer } from './external-code-server';
-import { getScreenSize } from './utils';
+import { getScreenSize, logElectron } from './utils';
 import { clearAreasE } from '../code-functions/mark-areas.functon';
 import { clearContentPos } from '../code-functions/display-content-pos.function';
 import { Readable } from 'node:stream';
@@ -62,7 +62,7 @@ function startExpressServer() {
     },
   } as any);
 
-  mainWindow!.webContents.send(ElectronIpcEvent.LOG, `Starting express server with path: ${expressPath}`);
+  logElectron(`Starting express server with path: ${expressPath}`);
 
   log(expressAppProcess.stdout);
   log(expressAppProcess.stderr);
@@ -249,11 +249,6 @@ async function createWindow() {
   })
   mainWindow.setAlwaysOnTop(true, "pop-up-menu");
 
-  addUpdateAppStateHandler(mainWindow, (state) => {
-    addShortcuthandlers(state);
-    latestState = state;
-  });
-
   if (url) {
     await mainWindow.loadURL(url)
   } else {
@@ -263,6 +258,11 @@ async function createWindow() {
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
     return { action: 'deny' };
+  });
+
+  addUpdateAppStateHandler(mainWindow, (state) => {
+    addShortcuthandlers(state);
+    latestState = state;
   });
 
   startExpressServer();
@@ -380,11 +380,11 @@ function log(x: Readable | string) {
               /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
               ""
             );
-            mainWindow!.webContents.send(ElectronIpcEvent.LOG, serverLogEntry);
+            logElectron(serverLogEntry);
           }
         });
     });
   } else {
-    mainWindow!.webContents.send(ElectronIpcEvent.LOG, x);
+    logElectron(x);
   }
 }

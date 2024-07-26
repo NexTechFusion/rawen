@@ -42,13 +42,12 @@
     ],
     publisherName: "NexTechFusion",
     artifactName: "${productName}_${version}.${ext}",
-    icon: "public/favicon.ico",
+    icon: "public/favicon_big.ico",
   },
   nsis: {
     oneClick: false,
     perMachine: false,
-    allowToChangeInstallationDirectory: true,
-    deleteAppDataOnUninstall: false,
+    allowToChangeInstallationDirectory: true
   },
   publish: {
     provider: "generic",

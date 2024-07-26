@@ -5,6 +5,7 @@ import { ElectronIpcEvent } from '../../shared/models/electron-ipc-events';
 import { mainWindow } from '.';
 import { CODE_SERVER_PORT } from '../../config';
 import cors from 'cors';
+import { logElectron } from './utils';
 
 let server: any = null;
 const app: express.Application = express();
@@ -56,7 +57,7 @@ export function startExternalCodeServer() {
     server = require('http').Server(app);
     server.listen(PORT, () => {
         console.log(`Code exec server listening on port ${PORT}`);
-        mainWindow!.webContents.send(ElectronIpcEvent.LOG, `Code exec server listening on port ${PORT}`);
+        logElectron(`Code exec server listening on port ${PORT}`);
     });
 }
 

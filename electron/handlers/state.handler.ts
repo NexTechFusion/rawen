@@ -6,6 +6,7 @@ import { getPublicPath } from "../../shared/utils/resources";
 import path from "path";
 import { mainWindow } from "../main/index";
 import { waitForAllPermissions as askPermissions } from "../main/mac-permissions";
+import { logElectron } from "../main/utils";
 
 function getAppstatePath() {
     const appPath = path.join(getPublicPath(), 'app-state.json');
@@ -22,14 +23,16 @@ export function saveAppStateElectron(state: any) {
 }
 export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: AppStateModel) => void) {
     let didFinishLoadExecuted = false;
-
+    
     const fallbackTimeout = setTimeout(() => {
+        logElectron('Loading state');
         if (!didFinishLoadExecuted) {
             executeDidFinishLoadLogic();
         }
-    }, 3000);
-
+    }, 2000);
+    
     win.webContents.on('did-finish-load', () => {
+        logElectron('Loading state');
         didFinishLoadExecuted = true;
         clearTimeout(fallbackTimeout);
         executeDidFinishLoadLogic();
@@ -37,11 +40,10 @@ export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: A
 
     function executeDidFinishLoadLogic() {
         try {
-            if (process.platform === 'darwin') {
-                askPermissions();
-            }
 
+            logElectron('State loaded, pusing to app');
             callback(pushStateToApp());
+
             win.webContents.send(ElectronIpcEvent.VERSION_INFO, {
                 version: app.getVersion(),
                 name: app.getName()
@@ -52,6 +54,10 @@ export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: A
                     callback(state);
                 }
             });
+
+            if (process.platform === 'darwin') {
+                askPermissions();
+            }
         } catch (err) {
             console.log(err);
         }

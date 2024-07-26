@@ -1,4 +1,6 @@
 import { screen, webContents } from "electron";
+import { mainWindow } from "./index";
+import { ElectronIpcEvent } from "../../shared/models/electron-ipc-events";
 
 export function getScreenSize() {
   const mpusepos = screen.getCursorScreenPoint();
@@ -22,4 +24,8 @@ export async function getElectronWindows() {
   }
 
   return windows;
+}
+
+export function logElectron(text: string) {
+  mainWindow!.webContents.send(ElectronIpcEvent.LOG, text);
 }
