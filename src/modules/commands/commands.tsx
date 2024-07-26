@@ -190,10 +190,6 @@ function Commands() {
     dispatch({ ...state, commands: newItem });
   };
 
-  const notReady = () => {
-    alert("Feature not ready yet");
-  };
-
   const TypeToText: React.FC<{ type: ActionType }> = ({ type }) => {
     if (typeof type != "string") {
       return type.name;
@@ -369,7 +365,7 @@ function Commands() {
                                   {command.actions.map((action, j) => {
                                     return (
                                       <>
-                                        <Dialog>
+                                        <Dialog key={action.id}>
                                           <DialogTrigger className="w-full">
                                             <div className="rounded-md border p-2 flex opacity-90 hover:opacity-95 hover:bg-secondary cursor-pointer w-full">
                                               <div className="opacity-70">

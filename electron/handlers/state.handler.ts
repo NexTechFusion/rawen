@@ -5,7 +5,7 @@ import { ElectronIpcEvent } from "../../shared/models/electron-ipc-events";
 import { getPublicPath } from "../../shared/utils/resources";
 import path from "path";
 import { mainWindow } from "../main/index";
-import { waitForAllPermissions } from "../main/mac-permissions";
+import { waitForAllPermissions as askPermissions } from "../main/mac-permissions";
 
 function getAppstatePath() {
     const appPath = path.join(getPublicPath(), 'app-state.json');
@@ -27,7 +27,7 @@ export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: A
         if (!didFinishLoadExecuted) {
             executeDidFinishLoadLogic();
         }
-    }, 2000);
+    }, 3000);
 
     win.webContents.on('did-finish-load', () => {
         if (!didFinishLoadExecuted) {
@@ -36,7 +36,7 @@ export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: A
             executeDidFinishLoadLogic();
 
             if (process.platform === 'darwin') {
-                waitForAllPermissions();
+                askPermissions();
             }
         }
     });
