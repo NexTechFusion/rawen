@@ -6,7 +6,7 @@ import { TrainerApi } from '@/api/train.api';
 import { ActionState, execCommands } from '../lib/command-execute';
 import { addInteractionLog, addInteractionPrompt, updateLastInteractionPrompt, isStreamActive } from '../lib/interaction-manager';
 import { startAudioRecordingfn, stopAudioRecordingFn } from '@/lib/audio-recording';
-import { openExternalWindowElectron } from '@/electron/electron-ipc-handlers';
+import { collapseApp as collapseAppE, ElectronState, openExternalWindowElectron } from '@/electron/electron-ipc-handlers';
 import { DefaultLlmSetting } from '../../shared/models/settings.model';
 import { abortController as abortControllerX } from '@/api/llm.api';
 import { getPublicPath } from '../../shared/utils/resources';
@@ -500,9 +500,35 @@ export async function executeCode(code: string, { actionState, input, sources, .
         return CodeFunctions.taskExplainListener();
     }
 
+    function collapseApp(collapse, width = undefined, height = undefined) {
+        collapseAppE(collapse, width, height);
+    }
+
+    function isAppCollapsed() {
+        return ElectronState.isAppCollapsed;
+    }
+
+    async function toggleAppCollapse() {
+        const isAppCollapsed = !ElectronState.isAppCollapsed;
+        if (!isAppCollapsed) {
+            await CodeFunctions.execElectron(`focusApp()`);
+        }
+
+        collapseApp(isAppCollapsed);
+        
+        setTimeout(async () => {
+            if (!isAppCollapsed) {
+                interactionStateChange({ focus: true });
+            }
+        }, 250);
+    }
+
     //purce prevention TODO : resolve this
     const asyncCode = `
         (async () => {
+            ${toggleAppCollapse}
+            ${isAppCollapsed}
+            ${collapseApp}
             ${taskExplainListener} 
             ${taskMarkListener}
             ${getTaskFlows}

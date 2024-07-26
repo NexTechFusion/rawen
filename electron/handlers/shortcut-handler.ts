@@ -28,6 +28,8 @@ export function addShortcutHandlerKeyListner(shortcuts) {
         });
     }
 
+    let autoClearTimeOut;
+
     keyboardListener.addListener((e, down) => {
         if (pressedKeys.includes(e.name) && e.state == "DOWN") {
             return;
@@ -40,15 +42,16 @@ export function addShortcutHandlerKeyListner(shortcuts) {
             }
 
             pressedKeys = [];
+            autoClearTimeOut && clearTimeout(autoClearTimeOut);
             mainWindow!.webContents.send(ElectronIpcEvent.KEY_RELEASED, e.name);
         } else {
             isDoingShortcut = true;
             pressedKeys.push(e.name);
             mainWindow!.webContents.send(ElectronIpcEvent.KEY_PRESSED, e.name);
 
-            setTimeout(() => {
-                pressedKeys = pressedKeys.filter((key) => key !== e.name);
-            }, 2000);
+            autoClearTimeOut = setTimeout(() => {
+                pressedKeys = [];
+            }, 3000);
         }
     });
 

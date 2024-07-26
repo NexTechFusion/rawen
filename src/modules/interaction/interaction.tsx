@@ -321,6 +321,11 @@ function Interaction() {
         setIsTrackRecording(interactState.isTrackRecording);
       }
 
+      if (interactState.focus) {
+        console.log("focus");
+        focusInput();
+      }
+
       if (interactState.files) {
         const newFiles = [...allFiles, ...interactState.files];
         setFiles(newFiles);
@@ -638,6 +643,7 @@ export interface InteractionChangeState {
   files?: File[];
   docs?: DocumentData[];
   isTrackRecording?: boolean;
+  focus?: boolean;
 }
 
 let forceInteractionRefreshr: () => void;

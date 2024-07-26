@@ -204,7 +204,17 @@ export async function executeCode(code: string, preDefinitions?: any) {
         return content;
     }
 
+    function focusApp() {
+        app.focus({
+            steal: true
+        });
+        //workaround...
+        mainWindow.minimize();
+        mainWindow.restore();
+    }
+
     const asyncCode = `
+    ${focusApp}
     ${displayContentAtPositions}
         ${clearContentAtPositions}
         ${shellOpen}

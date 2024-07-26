@@ -1,6 +1,11 @@
 import { ipcRenderer } from 'electron'
 import { ElectronIpcEvent } from '../../shared/models/electron-ipc-events'
 import { ExecExternalCodeModel } from '@/modules/task/task.model'
+import { pushUpdateCollapse } from '@/components/ui/app-collapse';
+
+export const ElectronState = {
+    isAppCollapsed: false,
+};
 
 export const registerCodePlayerHandler = (callback: (taskEditorData: ExecExternalCodeModel) => void) => {
     ipcRenderer.on(ElectronIpcEvent.CODE_EXEC, (_, taskEditorData) => callback(taskEditorData))
@@ -34,5 +39,7 @@ export const updateStateElectron = (state) => {
 }
 
 export const collapseApp = (isCollapsed: boolean, width?: number, height?: number, position?: { x: number, y: number }, placement?: "RIGHT") => {
+    ElectronState.isAppCollapsed = isCollapsed;
+    pushUpdateCollapse();
     ipcRenderer.send(ElectronIpcEvent.COLLAPSE_APP, { isCollapsed, width, height, position, placement })
 };

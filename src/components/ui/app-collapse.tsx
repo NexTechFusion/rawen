@@ -1,10 +1,13 @@
-import { CodeFunctions } from "@/code/code-functions.util";
-import { collapseApp } from "@/electron/electron-ipc-handlers";
-import { Camera, Maximize, Mic, Minus, Wand } from "lucide-react";
+import { collapseApp, ElectronState } from "@/electron/electron-ipc-handlers";
+import { Maximize, Minus } from "lucide-react";
 import { useState } from "react";
 
 export function AppCollapse() {
   const [collapsed, setCollapsed] = useState(false);
+
+  addUpdateCollapseHandler(() => {
+    setCollapsed(ElectronState.isAppCollapsed);
+  });
 
   const onCollapseApp = () => {
     setCollapsed(!collapsed);
@@ -15,13 +18,6 @@ export function AppCollapse() {
     if (!collapsed) return;
     onCollapseApp();
   };
-
-  async function onScreenShot() {
-    const buffer = await CodeFunctions.waitUntilMarked();
-    onCollapseApp();
-  }
-
-  async function onSpeechRecord() {}
 
   return (
     <>
@@ -47,4 +43,13 @@ export function AppCollapse() {
       </div>
     </>
   );
+}
+
+let collapser: () => void;
+export function pushUpdateCollapse() {
+  collapser();
+}
+
+function addUpdateCollapseHandler(func: () => void) {
+  collapser = func;
 }

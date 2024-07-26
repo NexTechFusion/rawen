@@ -9,6 +9,7 @@ import Nav from "./components/ui/nav";
 import { Toaster } from "./components/ui/toaster";
 import EasySpeech from "./lib/easy-speech";
 
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <AppProvider>

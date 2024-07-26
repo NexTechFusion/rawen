@@ -58,6 +58,12 @@ export const DynamicActionTypes: DynamicActionType[] = [
         ]
     },
     {
+        id: "toggleCollapseApp",
+        name: "Toggle collapse app",
+        code: "toggleAppCollapse();",
+        editableFields: []
+    },
+    {
         id: "endStream",
         name: "End stream",
         code: "endStream();",

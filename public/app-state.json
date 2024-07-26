@@ -13,6 +13,17 @@
   },
   "shortcuts": [
     {
+      "id": "58f91cfc-3c00-4a97-b35b-01956f3a3a3e",
+      "name": "Toggle collapse app",
+      "shortcut": [
+        "LEFT CTRL",
+        "Q"
+      ],
+      "cmdIds": [
+        "idw44w80l"
+      ]
+    },
+    {
       "id": "30b7ed0a-dbb5-4e47-bb9c-abe371e2e7db",
       "name": "Text or Code fix suggestion",
       "shortcut": [
@@ -56,6 +67,22 @@
     ]
   },
   "commands": [
+    {
+      "id": "idw44w80l",
+      "name": "toggle collapse app (Shortcut)",
+      "description": "opens / closes the app",
+      "actions": [
+        {
+          "id": "aec7q6hff",
+          "type": {
+            "id": "toggleCollapseApp",
+            "name": "Toggle collapse app",
+            "code": "toggleAppCollapse();",
+            "editableFields": []
+          }
+        }
+      ]
+    },
     {
       "id": "do5vzsco6",
       "name": "Fix text or code (shortcut)",
