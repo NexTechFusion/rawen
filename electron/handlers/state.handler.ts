@@ -24,15 +24,14 @@ export function saveAppStateElectron(state: any) {
 export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: AppStateModel) => void) {
     let didFinishLoadExecuted = false;
     
+    logElectron('Loading state');
     const fallbackTimeout = setTimeout(() => {
-        logElectron('Loading state');
         if (!didFinishLoadExecuted) {
             executeDidFinishLoadLogic();
         }
-    }, 2000);
+    }, 3000);
     
     win.webContents.on('did-finish-load', () => {
-        logElectron('Loading state');
         didFinishLoadExecuted = true;
         clearTimeout(fallbackTimeout);
         executeDidFinishLoadLogic();
@@ -40,7 +39,6 @@ export function addUpdateAppStateHandler(win: BrowserWindow, callback: (state: A
 
     function executeDidFinishLoadLogic() {
         try {
-
             logElectron('State loaded, pusing to app');
             callback(pushStateToApp());
 
