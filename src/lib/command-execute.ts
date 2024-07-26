@@ -25,7 +25,6 @@ async function getIntentCommandByPrompt(prompt: string) {
     // const promises = taskCmds.map((checksum) => getSimilarity(prompt, checksum));
     // const results = await Promise.all(promises);
     // console.log(results);
-
     const commands = appState.commands.filter(o => o.isTool);
 
     if (commands.length == 0) {
@@ -43,7 +42,7 @@ async function getIntentCommandByPrompt(prompt: string) {
     const bestScore = classify.scores[0];
     const bestScoreName = classify.labels[0];
 
-    if (bestScore > 0.8) {
+    if (bestScore > 0.7) {
         const command = commands.find(o => o.name == bestScoreName);
         return command;
     }
@@ -274,7 +273,7 @@ async function callVector(input: string, action: VectorRequestActionModel, actio
 async function callJsScript(input: string, action: JsScripActionModel, actionstate: ActionState) {
     process.env.prompt = input;
     try {
-        const { main } = require(`./${getPublicPath()}/scripts/${action.name}`);
+        const { main } = require(`${getPublicPath()}/scripts/${action.name}`);
 
         if (main) {
             const result = await main(input, actionstate);
@@ -287,3 +286,4 @@ async function callJsScript(input: string, action: JsScripActionModel, actionsta
         throw error;
     }
 }
+

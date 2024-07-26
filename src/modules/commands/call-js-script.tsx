@@ -21,7 +21,7 @@ export const CallJsScriptActionPanel: React.FC<IProps> = ({
     const file = e.target.files[0];
 
     //copy the file to the public folder
-    const newPath = `./${getPublicPath()}/scripts/${file.name}`;
+    const newPath = `${getPublicPath()}/scripts/${file.name}`;
     fs.copyFileSync(file.path, newPath);
     modelChange({ ...model, name: file.name });
     setPath(file.name);

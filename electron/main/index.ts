@@ -172,7 +172,6 @@ export function openFollowingWindow(content) {
   if (curorWindow != null) {
     curorWindow.close();
   }
-
   curorWindow = new BrowserWindow({
     title: 'rawen-cursor',
     autoHideMenuBar: true,

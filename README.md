@@ -7,23 +7,30 @@
   <img src="https://i.ibb.co/8xmfNxD/Rawenio.png" width="400" height="400" />
 </div>
 
-### Simple : A desktop app that executes AI driven commands
+### A desktop app that executes AI driven commands 
+Create a copilot, combine different AI models and resources
 
-Work in progress 🚧
+<b> Work in progress 🚧 </b>
 
 </center>
 
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
+- [Installation](#installation)
 - [Overview](#overview)
 - [Command execution - Basic Flow](#command-execution---basic-flow)
 - [General Features](#general-features)
-- [Installation](#installation)
 - [Dev-Mode](#dev-mode)
-  - [🛠️ Tools](#️-tools)
+- [🛠️ Tools](#️-tools)
 - [TY Technologies](#ty-technologies)
-  - [Disclaimer:](#disclaimer)
+- [Disclaimer:](#disclaimer)
+
+
+## Installation
+
+[Downloaded the latest release](https://github.com/NexTechFusion/rawen/releases)
+
 
 ## Overview
 
@@ -37,16 +44,12 @@ Code and api servers will run on startup locally on the users machine. <br> <sma
 
 ## General Features
 
-- [x] **Knowledge management** - Manage knowledge base (Multimodal)
+- [x] **Local Knowledge management** - Manage local knowledge (Multimodal)
 - [x] **Direct Document QA** - Ask questions about documents
 - [x] **Summarization** - Summarize context / documents
 - [x] **Visual QA** - QA images
 - [x] **Command management** - Manage commands
 - [x] **Shortcuts** - Create shortcuts for commands
-
-## Installation
-
-TODO
 
 ## Dev-Mode
 
@@ -55,21 +58,23 @@ TODO
 3. Run `npm run dev`
 
 At the menu "Key" set a default LLM and a key if needed.
+**Ollama** is the default LLM, run it if not running https://ollama.com/
 
-### 🛠️ Tools
+## 🛠️ Tools
 
 - [SDK](https://github.com/NexTech-Fusion/Rawen-command-maker)
-- [Documentation](https://docs.rawen.io)
+- [Documentation](https://docs.rawen.io/docs/About/origin)
 
 ## TY Technologies
 
+- [Ollama](https://github.com/ollama)
 - [Transformerjs](https://github.com/xenova/transformers.js)
 - [LanceDB](https://github.com/lancedb/lancedb)
 - [Electron](https://www.electronjs.org/)
 - [React](https://reactjs.org/)
 - [TailwindCSS](https://tailwindcss.com/)
 
-### Disclaimer:
+## Disclaimer:
 
 Rawen is a highly experimental project to discover the potential of AI as a desktop copilot.
 It should form a foundation for further research and development on our main objective.
