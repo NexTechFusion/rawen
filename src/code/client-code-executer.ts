@@ -13,7 +13,7 @@ import { getPublicPath } from '../../shared/utils/resources';
 import { VectorApi } from '@/api/vector.api';
 import { ImageVectorApi } from '@/api/image-vector.api';
 import { findTemplateMatch, labelImage as labelImager } from '@/lib/label-image';
-import { CodeFunctions } from './code-functions.util';
+import { CodeFunctions } from './client-code-functions';
 import { LinkExtractor } from '@/lib/link-extractor';
 
 export interface ExecuteCodeOptions {
@@ -421,27 +421,6 @@ export async function executeCode(code: string, { actionState, input, sources, .
         changeState({ ...appState, ...state });
     }
 
-    async function resizeImage(base64, targetWidth, targetHeight) {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.src = base64;
-
-            function resizeImage(image, width, height) {
-                const canvas = document.createElement('canvas');
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(image, 0, 0, width, height);
-                return canvas.toDataURL('image/png');
-            }
-
-            img.onload = function () {
-                const resizedImageDataUrl = resizeImage(img, targetWidth, targetHeight);
-                resolve(resizedImageDataUrl);
-            };
-        });
-    }
-
     async function labelImage(base64) {
         const response = await labelImager(base64);
 
@@ -568,7 +547,6 @@ export async function executeCode(code: string, { actionState, input, sources, .
             ${waitUntilMarked}
             ${getInteractionState}
             ${playAudio}
-            ${resizeImage}
             ${endStream}
             ${isStreaming}
             ${startStream}

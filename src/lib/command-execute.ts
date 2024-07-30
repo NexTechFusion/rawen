@@ -2,13 +2,13 @@ import { appState } from "@/state/app.state";
 import { CommandModel } from "../../shared/models/command.model";
 import { DocumentData } from "../../shared/models/app-state.model";
 import { ActionModel, DefaultLLMActionModel, DynamicActionType, JsScripActionModel, LmmRequestActionModel, VectorRequestActionModel } from "../../shared/models/action.model";
-import { executeCode } from "../code/code-executer.util";
+import { executeCode } from "../code/client-code-executer";
 import { LlmApi, collectedOutput } from "@/api/llm.api";
 import { VectorApi } from "@/api/vector.api";
 import { getConvoId, hasFiles } from "./utils";
 import { addInteractionPrompt, addInteractionContentR, isStreamActive, assignStreamedToLastInteraction, getInteractionHistory, addInteractionLog } from "./interaction-manager";
 import { setCanClick } from "@/electron/electron-ipc-handlers";
-import { CodeFunctions } from "@/code/code-functions.util";
+import { CodeFunctions } from "@/code/client-code-functions";
 import { getPublicPath } from "../../shared/utils/resources";
 import path from "node:path";
 export enum DefaultCommandIds {

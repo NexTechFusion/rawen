@@ -7,42 +7,10 @@
   <img src="https://i.ibb.co/8xmfNxD/Rawenio.png" width="400" height="400" />
 </div>
 
-### A desktop app that executes AI driven commands 
-Create a copilot, combine different AI models and resources
-
-<b> Work in progress 🚧 </b>
+### A desktop app that executes AI driven commands
+You can achive and do so much with a desktop copilot, JUST IMAGINE! 
 
 </center>
-
-## Table of Contents
-
-- [Table of Contents](#table-of-contents)
-- [Installation](#installation)
-- [Overview](#overview)
-- [Command execution - Basic Flow](#command-execution---basic-flow)
-- [General Features](#general-features)
-- [Dev-Mode](#dev-mode)
-- [🛠️ Tools](#️-tools)
-- [TY Technologies](#ty-technologies)
-- [Disclaimer:](#disclaimer)
-
-
-## Installation
-
-[Downloaded the latest release](https://github.com/NexTechFusion/rawen/releases)
-
-
-## Overview
-
-<img src="https://i.ibb.co/Wx4wgKK/overview.png" width="550" height="270" />
-
-Code and api servers will run on startup locally on the users machine. <br> <small>(TODO : Think about this) </small>
-
-## Command execution - Basic Flow
-
-<img src="https://i.ibb.co/ChWc3G7/flow.png" width="350" height="360" />
-
-## General Features
 
 - [x] **Local Knowledge management** - Manage local knowledge (Multimodal)
 - [x] **Direct Document QA** - Ask questions about documents
@@ -51,14 +19,39 @@ Code and api servers will run on startup locally on the users machine. <br> <sma
 - [x] **Command management** - Manage commands
 - [x] **Shortcuts** - Create shortcuts for commands
 
+---
+Table of Contents
+
+- [Installation](#installation)
+- [Overview](#overview)
+- [Command execution - Basic Flow](#command-execution---basic-flow)
+- [Dev-Mode](#dev-mode)
+- [🛠️ Tools](#️-tools)
+- [TY Technologies](#ty-technologies)
+- [Disclaimer:](#disclaimer)
+
+## Installation
+
+[Downloaded the latest release](https://github.com/NexTechFusion/rawen/releases)
+
+## Overview
+
+<img src="https://i.ibb.co/Wx4wgKK/overview.png" width="550" height="270" />
+
+Code and api servers will run on startup locally on the users machine. <br> <small>(TODO : Think about this) </small>
+
+## Command execution - Basic Flow
+Based on a simple intention classification, the command is executed
+<img src="https://i.ibb.co/ChWc3G7/flow.png" width="350" height="360" />
+
 ## Dev-Mode
+**Ollama** is the default LLM, run it if not running https://ollama.com/
+Otherwise at the menu "Key" set a default LLM and a key.
 
 1. Clone the repository
 2. Run `npm i --force`
 3. Run `npm run dev`
 
-At the menu "Key" set a default LLM and a key if needed.
-**Ollama** is the default LLM, run it if not running https://ollama.com/
 
 ## 🛠️ Tools
 

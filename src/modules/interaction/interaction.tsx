@@ -54,7 +54,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { addFocusHandler } from "@/electron/electron-ipc-handlers";
-import { CodeFunctions } from "@/code/code-functions.util";
+import { CodeFunctions } from "@/code/client-code-functions";
 import { Textarea } from "@/components/ui/textarea";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { TaskRecord } from "../task/task-recorder";

@@ -1,9 +1,9 @@
-import { executeCode } from "@/code/code-executer.util";
+import { executeCode } from "@/code/client-code-executer";
 import { type ClassValue, clsx } from "clsx"
 import { CommandModel } from "../../shared/models/command.model";
 import { twMerge } from "tailwind-merge"
 import { VectorApi } from "@/api/vector.api";
-import { CodeFunctions } from "@/code/code-functions.util";
+import { CodeFunctions } from "@/code/client-code-functions";
 export let _hasFiles = false;
 
 export function cn(...inputs: ClassValue[]) {

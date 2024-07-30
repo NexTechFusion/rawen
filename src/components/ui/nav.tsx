@@ -14,7 +14,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { randomUUID } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import { addNavigateListener } from "@/code/code-executer.util";
+import { addNavigateListener } from "@/code/client-code-executer";
 import { useAppContext } from "@/state/app.state";
 import { AppCollapse } from "./app-collapse";
 

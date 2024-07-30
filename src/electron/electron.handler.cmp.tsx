@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { ipcRenderer } from "electron";
 import { ShortCutModel } from "../../shared/models/shortcut.model";
 import { ElectronIpcEvent } from "../../shared/models/electron-ipc-events";
-import { executeCode, onNavigate } from "../code/code-executer.util";
+import { executeCode, onNavigate } from "../code/client-code-executer";
 import { registerCodePlayerHandler } from "./electron-ipc-handlers";
 import { execCommands } from "@/lib/command-execute";
 export let versionInfo: any = null;

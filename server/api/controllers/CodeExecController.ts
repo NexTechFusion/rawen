@@ -1,6 +1,6 @@
 import { JsonController, Post, Body, HttpError } from 'routing-controllers';
 import { Service } from 'typedi';
-import { CodeExecService } from '../services/exec-code';
+import { CodeExecService } from '../services/server-code-exec.service';
 
 @Service()
 @JsonController('/code')

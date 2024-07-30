@@ -3,7 +3,7 @@ import { Service } from 'typedi';
 import { ICallRequest } from '../../../shared/models/call.request.model';
 import { SettingsModel } from '../../../shared/models/settings.model';
 import { getDocs, getDocsbyFileName, getEmbedding, remove, retrive } from '../../../scripts/local-lancedb.store';
-import { FileTrainerService } from '../services/trainers/files-trainer.service';
+import { FileTrainerService } from '../services/files-trainer.service';
 import { getSimilarity } from '../../../scripts/transformer-wrapper';
 
 @Service()

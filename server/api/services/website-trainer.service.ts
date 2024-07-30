@@ -1,7 +1,7 @@
-import { extractDataFromWebsite } from "../../../../scripts/website-extractor";
-import { KeyValueSettings } from "../../../../shared/models/app-state.model";
+import { extractDataFromWebsite } from "../../../scripts/website-extractor";
+import { KeyValueSettings } from "../../../shared/models/app-state.model";
 import { Service } from "typedi";
-import { mapToLanceModel, update } from '../../../../scripts/local-lancedb.store';
+import { mapToLanceModel, update } from '../../../scripts/local-lancedb.store';
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
 @Service()

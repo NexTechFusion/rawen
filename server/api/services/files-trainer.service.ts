@@ -1,8 +1,8 @@
 import { Service } from "typedi";
-import { mapToLanceModel, update } from '../../../../scripts/local-lancedb.store';
-import { FileModel } from "../../models/file.model";
-import { splitText, splitImage, splitPdf, splitXlsx, splitCsv } from "../../../../scripts/file-splitter.tool";
-import { SettingsModel } from "../../../../shared/models/settings.model";
+import { mapToLanceModel, update } from '../../../scripts/local-lancedb.store';
+import { FileModel } from "../models/file.model";
+import { splitText, splitImage, splitPdf, splitXlsx, splitCsv } from "../../../scripts/file-splitter.tool";
+import { SettingsModel } from "../../../shared/models/settings.model";
 
 @Service()
 export class FileTrainerService {

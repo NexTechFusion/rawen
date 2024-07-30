@@ -1,8 +1,8 @@
 import { JsonController, Post, Body, HttpError, UploadedFiles, Param } from 'routing-controllers';
 import { Service } from 'typedi';
-import { FileTrainerService } from '../services/trainers/files-trainer.service';
+import { FileTrainerService } from '../services/files-trainer.service';
 import { SuccessResponse, asSuccess as Ok } from '../models/success-response';
-import { WebsiteTrainerService } from '../services/trainers/website-trainer.service';
+import { WebsiteTrainerService } from '../services/website-trainer.service';
 import { KeyValueSettings } from '../../../shared/models/app-state.model';
 
 @Service()
