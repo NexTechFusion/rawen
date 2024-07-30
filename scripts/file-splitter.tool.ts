@@ -135,6 +135,7 @@ function getMetaData(splittedDocs: any[], name: string, filePath?: string, metaD
     return splittedDocs.map((doc: Document) => ({
         ...doc,
         pageContent: doc.pageContent,
+        id: name,
         metadata: {
             id: name,
             date: new Date().toISOString(),

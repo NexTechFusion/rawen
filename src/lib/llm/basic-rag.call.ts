@@ -173,6 +173,7 @@ async function langchainRag(
             ],
         });
         response.output_text = response.output_text.replace(ANSWER_INDICATOR, "");
+        response.sourceDocuments = sourceDocuments;
         return response;
     } catch (err) {
         if (abortController.signal.reason === "Answer found") {

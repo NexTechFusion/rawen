@@ -4,6 +4,7 @@ import { CommandModel } from "../../shared/models/command.model";
 import { twMerge } from "tailwind-merge"
 import { VectorApi } from "@/api/vector.api";
 import { CodeFunctions } from "@/code/client-code-functions";
+import { DocumentData } from "shared/models/app-state.model";
 export let _hasFiles = false;
 
 export function cn(...inputs: ClassValue[]) {
@@ -161,8 +162,20 @@ export function toBuffer(base64: string): Buffer {
   return Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
 }
 
-
 export async function getSimilarity(str1: string, str2: string | string[]): Promise<number> {
   const similarity = await VectorApi.getSimilarity(str1, str2);
   return similarity;
+}
+
+export function openDocument(source: any) {
+  const link =
+    source.metadata?.website_url ?? source.metadata?.file_path;
+
+  if (!link) {
+    const blob = new Blob([source.pageContent], { type: "txt" });
+    const url = URL.createObjectURL(blob);
+    window.open(url, "_blank");
+  } else {
+    window.open(link, "_blank");
+  }
 }

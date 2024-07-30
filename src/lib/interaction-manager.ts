@@ -199,6 +199,25 @@ export function addRetry(convoId: string, prompt: string, commands = null) {
   }
 }
 
+
+export function updateInteractionCommands(convoId: string, commandIds: string[]) {
+  const state = appState as AppStateModel;
+  addNewInteractionIfNotExists(convoId);
+
+  const history = state?.llmResults.find((h) => h.convoId === convoId);
+  if (history) {
+    const lastItem = history.results[0];
+    if (lastItem) {
+      lastItem.commands = commandIds;
+    }
+
+    changeState({
+      ...appState,
+      llmResults: [...state?.llmResults],
+    });
+  }
+}
+
 export function addInteractionPrompt(
   convoId: string,
   prompt: string,
@@ -271,7 +290,7 @@ export function addInteractionContentR(
   }
 }
 
-export function setInteractionSources(convoId: string, sources: any[]) {
+export function setInteractionSources(sources: any[], convoId = getConvoId()) {
   const state = appState as AppStateModel;
 
   if (sources == null || sources.length == 0) {

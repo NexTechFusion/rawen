@@ -6,7 +6,7 @@ import { executeCode } from "../code/client-code-executer";
 import { LlmApi, collectedOutput } from "@/api/llm.api";
 import { VectorApi } from "@/api/vector.api";
 import { getConvoId, hasFiles } from "./utils";
-import { addInteractionPrompt, addInteractionContentR, isStreamActive, assignStreamedToLastInteraction, getInteractionHistory, addInteractionLog } from "./interaction-manager";
+import { addInteractionPrompt, addInteractionContentR, isStreamActive, assignStreamedToLastInteraction, getInteractionHistory, addInteractionLog, updateInteractionCommands, setInteractionSources } from "./interaction-manager";
 import { setCanClick } from "@/electron/electron-ipc-handlers";
 import { CodeFunctions } from "@/code/client-code-functions";
 import { getPublicPath } from "../../shared/utils/resources";
@@ -62,7 +62,7 @@ export async function execCommands(initalPrompt: string, commands: CommandModel[
 
         // add strart streaming
         if (convoId !== false) {
-            addInteractionPrompt(getConvoId(), initalPrompt, []);
+            addInteractionPrompt(getConvoId(), initalPrompt, [commands]);
         }
 
         // if no commands are given try to get the best command
@@ -73,6 +73,8 @@ export async function execCommands(initalPrompt: string, commands: CommandModel[
             } else {
                 commands = getDefaultCommands();
             }
+
+            updateInteractionCommands(getConvoId(), commands.map(o => o.id));
         }
 
 
@@ -211,8 +213,8 @@ async function callRagLlm(input: string, action: LmmRequestActionModel, state: A
     }
 
     let result = await LlmApi.reqRag(prompt, llmSetting, state.docs, hasFiles(), history);
+    setInteractionSources(result.sourceDocuments);
 
-    // setInteractionSources(getConvoId(), result.sourceDocuments);
     return result.output_text;
 }
 

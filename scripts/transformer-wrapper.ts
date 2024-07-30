@@ -8,7 +8,7 @@ export let pipeline;
 export let cos_sim;
 
 export function ensureTransfomersLoaded() {
-    if(RawImage) return;
+    if (RawImage) return;
 
     const userDataPath = process.env.ELECTRON_USER_DATA_PATH || "./";
     const loaded = sync(`@xenova/transformers`);
@@ -24,14 +24,14 @@ export function ensureTransfomersLoaded() {
 
 export const classifyImage = async (image: string, labels: string[], model?: string) => {
     ensureTransfomersLoaded();
-    const classifier = await pipeline('zero-shot-classification', ZERO_SHOT_CLASSIFICATION_IMAGE_MODEL);
+    const classifier = await pipeline('zero-shot-classification', model ?? ZERO_SHOT_CLASSIFICATION_IMAGE_MODEL);
     const output = await classifier(image, labels);
     return output;
 }
 
 export const classifyText = async (text: string, labels: string[], model?: string) => {
     ensureTransfomersLoaded();
-    const classifier = await pipeline('zero-shot-classification', ZERO_SHOT_CLASSIFICATION_MODEL);
+    const classifier = await pipeline('zero-shot-classification', model ?? ZERO_SHOT_CLASSIFICATION_MODEL);
     const output = await classifier(text, labels);
 
     return output;

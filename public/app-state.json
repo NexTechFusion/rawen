@@ -116,7 +116,8 @@
           "name": "sumarizeWebsite.js"
         }
       ],
-      "isTool": true
+      "isTool": true,
+      "asFollowUp": true
     },
     {
       "id": "egegd3ve1",

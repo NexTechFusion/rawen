@@ -13,6 +13,7 @@ import { InteractionCommand } from "./interaction-command";
 import { appState } from "@/state/app.state";
 import { useState } from "react";
 import { InteractionState } from "@/lib/interaction-state";
+import { openDocument } from "@/lib/utils";
 
 // interaction { metadata { sourcetype : export type SourcesType = "File" | "Website", website_url, file_path }}
 function InteractionResultPanel({
@@ -27,7 +28,6 @@ function InteractionResultPanel({
 
   let content = interaction.content ?? "Executed";
   const canRetry = interaction.commands?.length > 0;
-
   function DisplayInlineElement(ele: InlineElementConfirmation) {
     return (
       <>
@@ -84,76 +84,71 @@ function InteractionResultPanel({
     );
   }
 
-  let usedSourceNames = [];
-
   const hasResult =
     interaction.content != "" && interaction.content != undefined;
 
-  function Footer() {
+  function ActionsPanel() {
     const commandsFollowUp = appState?.commands?.filter(
       (cmd) => cmd.asFollowUp
     );
     const hasCommandsFollowUp = commandsFollowUp?.length > 0;
     return (
+      <div className="flex-1 flex-row-reverse flex cursor-pointer p-1 w-full text-muted-foreground/50 no-drag mr-4">
+        <div className="text-xs flex-1 flex flex-row-reverse gap-4">
+          {canRetry && (
+            <div
+              onClick={() => retry(interaction)}
+              className="flex justify-center align-middle items-center gap-1  hover:text-accent-foreground"
+            >
+              <RefreshCw className="w-3 h-3" />
+            </div>
+          )}
+          {hasCommandsFollowUp && (
+            <>
+              <InteractionCommand
+                triggerContent={
+                  <div className="flex justify-center align-middle items-center gap-1 hover:text-accent-foreground">
+                    <Combine className="w-3 h-3" />
+                  </div>
+                }
+                commands={commandsFollowUp}
+                onSelect={(id) => {
+                  onFollowUp(id);
+                }}
+              />
+            </>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  function DocumentsPanel() {
+    return (
       <>
-        <div className="flex-1 flex-row-reverse flex cursor-pointer p-1 w-full text-muted-foreground/50 no-drag">
-          <div className="text-xs flex-1 flex flex-row-reverse gap-4">
-            {canRetry && (
-              <div
-                onClick={() => retry(interaction)}
-                className="flex justify-center align-middle items-center gap-1  hover:text-accent-foreground"
-              >
-                <RefreshCw className="w-3 h-3" /> Retry
-              </div>
-            )}
-            {hasCommandsFollowUp && (
-              <>
-                <InteractionCommand
-                  triggerContent={
-                    <div className="flex justify-center align-middle items-center gap-1 hover:text-accent-foreground">
-                      <Combine className="w-3 h-3" /> Action
-                    </div>
-                  }
-                  commands={commandsFollowUp}
-                  onSelect={(id) => {
-                    onFollowUp(id);
-                  }}
-                />
-              </>
-            )}
-          </div>
+        <div className="flex-1 flex-row-reverse flex cursor-pointer p-1 w-full text-muted-foreground/50 no-drag mr-4">
           <div className="flex gap-2 ">
             {interaction.sources?.map((source) => {
-              if (source == undefined) {
-                return;
-              }
+              const isWebsite = source.metadata?.id.includes("http");
+              const isFile = !isWebsite; //lol
 
-              const isWebsite = source.metadata?.source_type == "Website";
-              const isFile = source.metadata?.source_type == "File";
-              const link =
-                source.metadata?.website_url ?? source.metadata?.file_path;
               const name = isFile
-                ? source.metadata?.file_name
+                ? source.metadata?.id
                 : source.metadata?.website_url?.split("/")?.pop();
 
-              if (!link || usedSourceNames.includes(name)) {
-                return null;
-              }
-
-              usedSourceNames.push(name);
               return (
                 <>
                   <div
-                    key={source.file_name}
+                    key={name}
                     className="flex flex-row mr-2 text-xs hover:text-muted-foreground"
-                    onClick={() => window.open(link, "_blank")}
+                    onClick={() => openDocument(source)}
                   >
                     {isFile && <FileIcon className="mr-1 w-4 h-4" />}
                     {isWebsite && <GlobeIcon className="mr-1 w-4 h-4" />}
 
                     <div className="truncate text-xs">{name}</div>
                   </div>
-                </> 
+                </>
               );
             })}
           </div>
@@ -165,7 +160,7 @@ function InteractionResultPanel({
   return (
     <>
       <div className="flex items-start gap-2.5 w-full">
-        <img className="w-6 h-6 rounded-full" src="head.png" />
+        <img className="w-6 h-6 rounded-full birdi" src="head.png" />
         <div className="flex flex-col gap-2.5 w-full leading-1.5 p-4  rounded-e-xl rounded-es-xl dark:bg-gray-800 mr-2 text-sm no-drag">
           <div>
             {interaction.content && <InteractionMarkdown children={content} />}
@@ -179,10 +174,11 @@ function InteractionResultPanel({
               );
             })}
             {interaction.logs && <LogPanel logs={interaction.logs} />}
+            {hasResult && <DocumentsPanel />}
           </div>
         </div>
       </div>
-      {hasResult && <Footer />}
+      {hasResult && <ActionsPanel />}
     </>
   );
 }
