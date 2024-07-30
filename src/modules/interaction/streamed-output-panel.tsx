@@ -77,7 +77,7 @@ function StreamedOutput({ interaction }) {
   return (
     <>
       <div className="flex items-start gap-2.5 w-full dragger">
-        <img className="w-6 h-6 rounded-full birdi" src="head.png" />
+        <img className="w-6 h-6 rounded-full birdi animate-bounce" src="head.png" />
         <div className="flex flex-col gap-2.5 w-full leading-1.5 p-4  rounded-e-xl rounded-es-xl dark:bg-gray-700 mr-2 text-sm gradient-border no-drag">
           <InteractionMarkdown children={res} />
           {streamLogOutput != "" && <LogPanel logs={streamLogOutput} />}
